@@ -1,4 +1,4 @@
-# CodeKata
+# CodeKata (0)
 
 #### Find the Highest 2nd Number in an Array
 
