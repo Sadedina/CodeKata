@@ -8,7 +8,7 @@
  */
 namespace CodeKata
 {
-    public class CodeKata_0
+    public class CodeKata_0_0
     {
         public static void Highest2Integer(int[] arrs)
         {

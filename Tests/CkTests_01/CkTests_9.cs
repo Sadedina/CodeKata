@@ -11,13 +11,13 @@ namespace Tests
          *  1 - 
          *  2 - 
          *  3 - 
+         *  3 - 
          */
-        //[Test]
-       
-        //public void Fib()
-        //{
 
-        //    Assert.That(CodeKata_9, Is.EqualTo();
+        //[TestCase(196418, true)]
+        //public void IsAFibonnaciNumber_ReturnsCorrectBool(int value, bool expected)
+        //{
+        //    Assert.That(CodeKata_9.IsAFibonnaciNumber(value), Is.EqualTo(expected));
         //}
     }
 }

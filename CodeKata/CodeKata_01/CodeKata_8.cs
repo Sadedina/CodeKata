@@ -8,6 +8,9 @@ using System.Linq;
 * Create a method which takes an int[] array and returns a Dictionary<int, bool> 
 * where the Key in the Dictionary is the number from the array, and the Value is a 
 * boolean stating (true or false) whether or not it is in the Fibonacci sequence
+* 
+* If you have not already, attempt to write the method, which returns the dictionary 
+* of numbers as the key and the value as true or false if it's a fibonacci number, in one line
 */
 namespace CodeKata
 {
@@ -19,10 +22,25 @@ namespace CodeKata
 
             foreach (var i in num)
             {
-                list.Add(i, IsInTheFibonacciSequence(i));
+                list.TryAdd(i, IsAFibonnaciNumber(i));
             }
 
             return list;
+        }
+
+        public static bool IsAFibonnaciNumber(int num)
+        {
+            bool result = false;
+            double fibonacciEquation1 = 5 * Math.Pow(num, 2) + 4;
+            int sqrtOfEquation1 = (int)Math.Sqrt(fibonacciEquation1);
+            double fibonacciEquation2 = 5 * Math.Pow(num, 2) - 4;
+            int sqrtOfEquation2 = (int)Math.Sqrt(fibonacciEquation2);
+
+            if (fibonacciEquation1 % sqrtOfEquation1 == 0 || fibonacciEquation2 % sqrtOfEquation2 == 0)
+                result = true;
+            if (num < 0) result = false;
+
+            return result;
         }
 
         public static bool IsInTheFibonacciSequence(int num)

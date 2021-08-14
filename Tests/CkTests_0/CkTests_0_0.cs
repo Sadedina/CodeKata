@@ -4,13 +4,13 @@ using CodeKata;
 
 namespace Tests
 {
-    class CkTests_0
+    class CkTests_0_0
     {
         [Test]
         public void WhenGivenAnEmptyArray_Function_ReturnsException()
         {
             int[] arrs = { };
-            Assert.That(() => CodeKata_0.Find(arrs), Throws.TypeOf<Exception>()
+            Assert.That(() => CodeKata_0_0.Find(arrs), Throws.TypeOf<Exception>()
                 .With.Message.Contains("The list is empty"));
         }
 
@@ -20,7 +20,7 @@ namespace Tests
         public void WhenGivenAnArrayOfSizeOne_Function_ReturnsIntegerInArray(int num)
         {
             int[] arrs = { num };
-            Assert.That(() => CodeKata_0.Find(arrs), Throws.TypeOf<Exception>()
+            Assert.That(() => CodeKata_0_0.Find(arrs), Throws.TypeOf<Exception>()
                 .With.Message.Contains("The list only contains one element"));
         }
 
@@ -31,7 +31,7 @@ namespace Tests
         [TestCase(new int[] { 12, 12, 12, 12 })]
         public void WhenGivenAnArrayWithSameNumbers_Function_ReturnsThrowsException(int[] num)
         {
-            Assert.That(() => CodeKata_0.Find(num), Throws.TypeOf<Exception>()
+            Assert.That(() => CodeKata_0_0.Find(num), Throws.TypeOf<Exception>()
                 .With.Message.Contains($"All numbers in Array are equal with value {num[0]}."));
         }
 
@@ -40,7 +40,7 @@ namespace Tests
         [TestCase(new int[] { -2, -4, -6 }, -4)]
         public void WhenGivenAnArray_Function_Returns2HighestIntegerInArray(int[] num, int expectedValue)
         {
-            Assert.That(CodeKata_0.Find(num), Is.EqualTo(expectedValue));
+            Assert.That(CodeKata_0_0.Find(num), Is.EqualTo(expectedValue));
         }
 
         [TestCase(new int[] { 2, 4, 6, 6 }, 4)]
@@ -48,7 +48,7 @@ namespace Tests
         [TestCase(new int[] { -2, -4, -6, -2 }, -4)]
         public void WhenGivenAnArrayWith2HighestNumberTheSame_Function_Returns2HighestIntegerInArray(int[] num, int expectedValue)
         {
-            Assert.That(CodeKata_0.Find(num), Is.EqualTo(expectedValue));
+            Assert.That(CodeKata_0_0.Find(num), Is.EqualTo(expectedValue));
         }
     }
 }
