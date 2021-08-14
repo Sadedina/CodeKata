@@ -20,7 +20,7 @@ CodeKata Number 0.6:	Fizz Buzz
 
 CodeKata Number 0.7:	Group and sort by DNA
 
-******************CodeKata Number 0.8:	Calculator
+CodeKata Number 0.8:	Calculator
 
 CodeKata Number 1: Convert number to reversed array of digits
 

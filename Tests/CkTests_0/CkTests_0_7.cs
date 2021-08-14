@@ -13,7 +13,7 @@ namespace Tests
          *  2 - Given ATCG letters in upper case the method return the correct ATCG values
          *  3 - Given ATCG letters in lower case the method return the correct ATCG values
          *  4 - Given ATCG letters in upper and lower case the method return the correct ATCG values
-         *  4 - Given random word in upper and lower case the method return the correct ATCG values
+         *  5 - Given random word in upper and lower case the method return the correct ATCG values
          */
         [TestCase("Smuel is very funny", "A:0, T:0, C:0, G:0")]
         [TestCase("12345678910", "A:0, T:0, C:0, G:0")]
