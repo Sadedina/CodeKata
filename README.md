@@ -14,11 +14,11 @@ CodeKata Number 0:	Find the Highest 2nd Number in an Array
 
 CodeKata Number 0.1:	Return the remainder of transaction in bills and coins
 
-******************CodeKata Number 0.5:	Print numbers in Roman Numerals
+CodeKata Number 0.5:	Print numbers in Roman Numerals
 
-******************CodeKata Number 0.6:	Fizz Buzz
+CodeKata Number 0.6:	Fizz Buzz
 
-******************CodeKata Number 0.7:	Group and sort by DNA
+CodeKata Number 0.7:	Group and sort by DNA
 
 ******************CodeKata Number 0.8:	Calculator
 
