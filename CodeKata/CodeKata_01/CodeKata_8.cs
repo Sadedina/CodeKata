@@ -43,7 +43,7 @@ namespace CodeKata
             return result;
         }
 
-        public static bool IsInTheFibonacciSequence(int num)
+        public static bool IsInTheFibonacciSequence2(int num)
         {
             List<int> fibonacciNumber = new List<int> { 0, 1 };
             bool result = false;
@@ -59,6 +59,27 @@ namespace CodeKata
                 result = true;
 
             return result;
+        }
+
+        public static bool IsInTheFibonacciSequence(int num)
+        {
+            List<int> fibonacciNumber = new List<int> { 0, 1 };
+            bool result = false;
+
+            for (int i = 0; i < num; i++)
+            {
+                fibonacciNumber.Add(fibonacciNumber[fibonacciNumber.Count() - 1] + fibonacciNumber[fibonacciNumber.Count() - 2]);
+            }
+
+            if (fibonacciNumber.Contains(num))
+                result = true;
+
+            return result;
+        }
+
+        public static Dictionary<int, bool> FibDict(int[] num)
+        {
+            return num.ToList().Select(x => new KeyValuePair<int, bool>(x, ((5 * Math.Pow(x, 2) + 4) % (int)Math.Sqrt(5 * Math.Pow(x, 2) + 4) == 0 || (5 * Math.Pow(x, 2) - 4) % (int)Math.Sqrt(5 * Math.Pow(x, 2) - 4) == 0) && (x >= 0) ? true : false)).ToDictionary(x => x.Key, x => x.Value);
         }
     }
 }

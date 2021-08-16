@@ -12,5 +12,10 @@ namespace CodeKata
 {
     public class CodeKata_9
     {
+        public static ulong ReturnSumFiboList(int limit)
+        {
+            return (ulong)Enumerable.Range(0, limit).Sum(x => (1 / Math.Sqrt(5)) * 
+            (Math.Pow((1 + Math.Sqrt(5)) / 2, x) - Math.Pow((1 - Math.Sqrt(5)) / 2, x)));
+        }
     }
 }

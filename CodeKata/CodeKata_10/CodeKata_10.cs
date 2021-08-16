@@ -21,7 +21,7 @@ using System.Linq;
 *   public class Alien : IMultiLimb
 *   {
 *       public string Name { get; set; }
-*       public int NumberOfLimbs { get; set; }*       
+*       public int NumberOfLimbs { get; set; }
 *   }
 *   
 *   
@@ -34,7 +34,42 @@ using System.Linq;
 
 namespace CodeKata
 {
+    public interface IMultiLimb
+    {
+        public string Name { get; set; }
+        public int NumberOfLimbs { get; set; }
+    }
+
+    public class Alien : IMultiLimb
+    {
+        public string Name { get; set; }
+        public int NumberOfLimbs { get; set; }
+        public Alien(string name, int num) => (Name, NumberOfLimbs) = (name, num);
+    }
+    public class Animal : IMultiLimb
+    {
+        public string Name { get; set; }
+        public int NumberOfLimbs { get; set; }
+        public Animal(string name, int num) => (Name, NumberOfLimbs) = (name, num);
+    }
+
+    public class GenericList<T, U> where T : Alien, new() where U : Animal
+    {
+        private List<Alien> _aliens;
+        private List<Animal> _animals;
+        public void SortAliens()
+        {
+            List<Alien> sortLimbAliens = _aliens.OrderBy(a => a.NumberOfLimbs).ToList();
+        }
+        public void SortAnimals()
+        {
+            List<Animal> sortLimbAnimals = _animals.OrderBy(a => a.NumberOfLimbs).ToList();
+        }
+    }
+
     public class CodeKata_10
     {
     }
+
+
 }
