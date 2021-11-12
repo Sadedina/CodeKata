@@ -46,6 +46,7 @@ namespace CodeKata
         public int NumberOfLimbs { get; set; }
         public Alien(string name, int num) => (Name, NumberOfLimbs) = (name, num);
     }
+
     public class Animal : IMultiLimb
     {
         public string Name { get; set; }
@@ -55,20 +56,25 @@ namespace CodeKata
 
     public class GenericList<T, U> where T : Alien, new() where U : Animal
     {
-        private List<Alien> _aliens;
-        private List<Animal> _animals;
+        private List<Alien> aliens;
+        private List<Animal> animals;
         public void SortAliens()
         {
-            List<Alien> sortLimbAliens = _aliens.OrderBy(a => a.NumberOfLimbs).ToList();
+            List<Alien> sortLimbAliens = aliens.OrderBy(a => a.NumberOfLimbs).ToList();
         }
         public void SortAnimals()
         {
-            List<Animal> sortLimbAnimals = _animals.OrderBy(a => a.NumberOfLimbs).ToList();
+            List<Animal> sortLimbAnimals = animals.OrderBy(a => a.NumberOfLimbs).ToList();
         }
-    }
-
-    public class CodeKata_10
-    {
+        public GenericList<T, U> SortLimbs(T alien, U animal)
+        {
+            var list = new GenericList<T, U>();
+            list.aliens.Add(alien);
+            list.animals.Add(animal);
+            list.SortAliens();
+            list.SortAnimals();
+            return list;
+        }
     }
 
 
