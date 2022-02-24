@@ -1,4 +1,5 @@
 ﻿using System;
+
 /*
 *                                  CodeKata Number 5
 * Create a method that takes an int[] array and returns number (int) closest to 0

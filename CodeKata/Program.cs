@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CodeKata
+﻿namespace CodeKata
 {
     class Program
     {

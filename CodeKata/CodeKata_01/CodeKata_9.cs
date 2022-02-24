@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+
 /*
 *                                  CodeKata Number 9
 *                     Sum of all numbers in a Fibonacci sequence

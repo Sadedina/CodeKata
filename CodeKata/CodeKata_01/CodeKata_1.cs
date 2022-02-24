@@ -1,4 +1,5 @@
 ﻿using System;
+
 /*
 *                                  CodeKata Number 1
 *                    Convert number to reversed array of digits

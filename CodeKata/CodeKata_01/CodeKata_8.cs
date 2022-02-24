@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 /*
 *                                  CodeKata Number 8
 *                           Numbers in a Fibonacci sequence

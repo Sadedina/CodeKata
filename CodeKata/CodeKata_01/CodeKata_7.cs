@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-/*
+﻿/*
 *                                  CodeKata Number 7
 *                             Duplicate chars in a string
 * 
