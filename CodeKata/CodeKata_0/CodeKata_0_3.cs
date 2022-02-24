@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-/*
+﻿/*
 *                                  CodeKata Number 0.3
 *                                    (C# Basic Test)
 *                                Sum in an Array n1 to n2 

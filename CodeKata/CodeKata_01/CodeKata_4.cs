@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-/*
+﻿/*
 *                                  CodeKata Number 4
 *                                   Who likes it?
 *                     

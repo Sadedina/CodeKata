@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 /*
 *                                  CodeKata Number 1
 *                    Convert number to reversed array of digits

@@ -76,6 +76,4 @@ namespace CodeKata
             return list;
         }
     }
-
-
 }

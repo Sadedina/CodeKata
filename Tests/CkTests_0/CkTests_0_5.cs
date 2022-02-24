@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using CodeKata;
-using System.Collections.Generic;
-using System;
+using NUnit.Framework;
 
 namespace Tests
 {

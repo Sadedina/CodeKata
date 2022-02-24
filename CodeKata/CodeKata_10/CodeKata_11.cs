@@ -14,37 +14,80 @@ namespace CodeKata
 {
     public class CodeKata_11
     {
-        public static string ReadFile()
+        const int lineLenght = 20;
+        const int halfLineLength = 10;
+
+        public static int? PokerHands()
+        {
+            var file = ReadFile();
+            string[] playerOneCards = PlayerHand(file).Item1;
+            string[] playerTwoCards = PlayerHand(file).Item2;
+
+            //string[] plauerOneHandValue = ;
+            //string[] plauerTwoHandValue = ;
+
+            var oder = OrderCards("ASKD3DJD8H");
+
+            return null;
+        }
+
+        private static string ReadFile()
         {
             var url = "https://projecteuler.net/project/resources/p054_poker.txt";
 
             return (new WebClient()).DownloadString(url).Replace(" ", "").Replace("\n", "");
         }
-        public static void PokerHands(string file)
+
+        private static (string[], string[]) PlayerHand(string file)
         {
             int counter = file.Length;
-            string[,] player1Cards = new string[1010,5];
-            string[,] player2Cards = new string[1010,5];
-            int x = 0, y = 0, i = 0, j = 10;
+            string[] playerOneCards = new string[counter / lineLenght];
+            string[] playerTwoCards = new string[counter / lineLenght];
+            int x = 0, i = 0, j = halfLineLength;
 
             do
             {
-                player1Cards[x, y] = file.Substring(i, 2);
-                player2Cards[x, y] = file.Substring(j, 2);
+                playerOneCards[x] = file.Substring(i, halfLineLength);
+                playerTwoCards[x] = file.Substring(j, halfLineLength);
 
-                y++;
-                i += 2;
-                j += 2;
-                if (y == 5)
-                {
-                    y = 0;
-                    i += 10;
-                    j += 10;
-                    x++;
-                }
+                x++;
+                i += lineLenght;
+                j += lineLenght;
 
-                counter -= 20;
-            } while (counter >= 0);
+                counter -= lineLenght;
+            } while (counter >= lineLenght);
+
+            return (playerOneCards, playerTwoCards);
         }
+
+        private static string[] OrderCards(string hand)
+        {
+            var oderedCards = new string[5];
+            var cards = new string[]
+            {
+                hand.Substring(0, 2),
+                hand.Substring(2, 2),
+                hand.Substring(4, 2),
+                hand.Substring(6, 2),
+                hand.Substring(8, 2),
+            };
+            
+
+            Array.Sort(cards);
+
+
+            for (int i = 0; i < 5; i++)
+            {
+
+            }
+
+
+            return cards;
+        }
+
+        //private static int HighCard(string[] cards)
+        //{
+
+        //}
     }
 }

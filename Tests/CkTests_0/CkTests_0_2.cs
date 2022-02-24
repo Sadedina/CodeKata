@@ -1,6 +1,6 @@
-using NUnit.Framework;
-using CodeKata;
 using System;
+using CodeKata;
+using NUnit.Framework;
 
 namespace Tests
 {
