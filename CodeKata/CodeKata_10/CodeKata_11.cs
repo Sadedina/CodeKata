@@ -18,32 +18,39 @@ namespace CodeKata
         const int lineLenght = 20;
         const int halfLineLength = 10;
 
-        public static int? PokerHands()
+        public static int WinRateOfPlayerOne()
         {
             var file = ReadFile();
 
-            // Strings of hand "4S8C9HTSKC" in order
-            string[] playerOneCards = PlayerHand(file).Item1;
-            string[] playerTwoCards = PlayerHand(file).Item2;
+            var playerOneCards = PlayerHand(file).Item1;
+            var playerTwoCards = PlayerHand(file).Item2;
 
-            //string[] playerOneHandValue = ;
-            //string[] playerTwoHandValue = ;
+            var playerOneHandValues = AllPlayersCardsValue(playerOneCards);
+            var playerTwoHandValues = AllPlayersCardsValue(playerTwoCards);
+
+            var winnerPerRound = WinnerOfARound(playerOneHandValues, playerTwoHandValues);
 
 
+            var test = PlayerOneWins(winnerPerRound);
+            var test1 = PlayerOneWins(winnerPerRound);
+            return PlayerOneWins(winnerPerRound);
 
-            var handTest = CountPairValue("4S8C9HTSKC");
-            var handTest1 = CountPairValue("4S8C9HKSKC");
-            var handTest2 = CountPairValue("4S4C9HKSKC");
-            var handTest3 = CountPairValue("4S4C4HTSKC");
-            var handTest4 = CountPairValue("4S4C4HKSKC");
-            var handTest5 = CountPairValue("4S4C4H4SKC");
-            var handTest6 = SameSuits("4S8S9STSKS");
-            var testCard = new string[]
-            {
-                "TH", "JH", "QH", "KH", "2H"
-            };
+            //var handTest = HandValue("4S8C9HTSKC");
+            //var handTest1 = HandValue("4S8C9HKSKC");
+            //var handTest2 = HandValue("4S4C9HKSKC");
+            //var handTest3 = HandValue("4S4C4HTSKC");
+            //var handTest4 = HandValue("4S4C4HKSKC");
+            //var handTest5 = HandValue("4S4C4H4SKC");
+            //var handTest6 = HandValue("4S8S9STSKS");
+            //var handTest7 = HandValue("4S8S9STSKS");
+            //var handTest8 = HandValue("4S5C6H7S8C");
+            //var handTest9 = HandValue("4S5S6S7S8S");
+            //var handTest10 = HandValue("THJHQHKHAH");
 
-            return null;
+            //var testCard = new string[]
+            //{
+            //    "TH", "JH", "QH", "KH", "2H"
+            //};
         }
 
         private static string ReadFile()
@@ -113,6 +120,129 @@ namespace CodeKata
                 hand.Substring(6, 2),
                 hand.Substring(8, 2),
             };
+        }
+
+        private static int CardsToValueConverter(string number)
+        {
+            if (number == "T")
+                return 10;
+
+            if (number == "J")
+                return 11;
+
+            if (number == "Q")
+                return 12;
+
+            if (number == "K")
+                return 13;
+
+            if (number == "A")
+                return 14;
+
+            return Convert.ToInt32(number);
+        }
+
+        private static string[] HandValue(string playerCard)
+        {
+            var handValue = new string[6];
+
+            handValue = ConsecutiveCards(playerCard);
+            if (handValue[0] != null)
+                return handValue;
+
+            handValue = CountPairValue(playerCard);
+            if (handValue[0] != null)
+                return handValue;
+
+            if (HasSameSuits(playerCard))
+            {
+                handValue[0] = "18";
+                handValue[1] = playerCard.Substring(8, 1);
+                return handValue;
+            }
+
+            handValue = HighestCard(playerCard);
+
+            return handValue;
+        }
+
+        private static string[,] AllPlayersCardsValue(string[] playerCard)
+        {
+            int rounds = playerCard.Count();
+            var playerGame = new string[rounds, 6];
+
+            for (int i = 0; i < rounds; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    playerGame[i, j] = HandValue(playerCard[i])[j];
+                }
+            }
+
+            return playerGame;
+        }
+
+        private static string[] WinnerOfARound(string[,] playerOne, string[,] playerTwo)
+        {
+            // REMOVE
+            //var one = new string[6];
+            //var two = new string[6];
+
+            int valuePlayerOne = 0, valuePlayerTwo = 0;
+            var winner = new string[1000];
+
+            for (int i = 0; i < 1000; i++)
+            {
+                // REMOVE
+                //for (int x = 0; x < 6; x++)
+                //{
+                //    one[x] = playerOne[i,x];
+                //    two[x] = playerTwo[i,x];
+                //}
+
+                for (int j = 0; j < 6; j++)
+                {
+                    valuePlayerOne = Convert.ToInt32(playerOne[i, j]);
+                    valuePlayerTwo = Convert.ToInt32(playerTwo[i, j]);
+                    winner[i] = "Draw";
+
+                    if (valuePlayerOne > valuePlayerTwo)
+                    {
+                        winner[i] = "Player One";
+                        break;
+                    }
+                        
+                    if (valuePlayerOne < valuePlayerTwo)
+                    {
+                        winner[i] = "Player Two";
+                        break;
+                    }
+                }
+            }
+
+            return winner;
+        }
+
+        private static int PlayerOneWins(string[] rounds)
+        {
+            var counter = 0;
+
+            foreach (var winner in rounds)
+            {
+                if (winner == "Player One")
+                    counter++;
+            }
+
+            return counter;
+        }
+
+        // Get Value of Hand
+        private static string[] HighestCard(string hand)
+        {
+            var handValue = new string[6];
+            handValue[0] = CardsToValueConverter(hand.Substring(8, 1)).ToString();
+
+            return handValue;
         }
 
         private static string[] CountPairValue(string hand)
@@ -211,20 +341,7 @@ namespace CodeKata
             return handValue;
         }
 
-        private static string[] HighestCard(string hand)
-        {
-            var handValue = new string[6];
-            handValue[0] = hand.Substring(8, 1);
-
-            if (handValue[0] == "J") handValue[0] = "11";
-            if (handValue[0] == "Q") handValue[0] = "12";
-            if (handValue[0] == "K") handValue[0] = "13";
-            if (handValue[0] == "A") handValue[0] = "14";
-
-            return handValue;
-        }
-
-        private static bool SameSuits(string hand)
+        private static bool HasSameSuits(string hand)
         {
             var hasFourSameSuit = hand.Count(h => h == 'H') == 5 || 
                 hand.Count(d => d == 'D') == 5 || 
@@ -239,11 +356,27 @@ namespace CodeKata
 
         private static string[] ConsecutiveCards(string hand)
         {
+            const string straight = "A23456789TJQKA";
+            const string royal = "TJQKA";
+            var handValue = new string[6];
+            var cardsNoSuit = hand.Replace("H", "").Replace("D", "").Replace("C", "").Replace("S", "");
+            
 
+            if (straight.Contains(cardsNoSuit))
+            {
+                handValue[0] = "18";
+                handValue[1] = CardsToValueConverter(hand.Substring(8, 1)).ToString();
 
+                if (HasSameSuits(hand))
+                {
+                    handValue[0] = "22";
 
-            return null;
+                    if (royal.Contains(cardsNoSuit))
+                        handValue[0] = "23";
+                }
+            }
+
+            return handValue;
         }
-
     }
 }

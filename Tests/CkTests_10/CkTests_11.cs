@@ -16,7 +16,7 @@ namespace Tests
         [Test]
         public void IsAFibonnaciNumber_ReturnsCorrectBool()
         {
-            Assert.That(CodeKata_11.PokerHands(), Is.EqualTo(null));
+            Assert.That(CodeKata_11.WinRateOfPlayerOne(), Is.EqualTo(5));
         }
     }
 }
