@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 
 /*
 *                                  CodeKata Number 11
@@ -20,21 +21,24 @@ namespace CodeKata
 
         public static int WinRateOfPlayerOne()
         {
-            var file = ReadFile();
+            //var file = ReadFile();
 
-            var playerOneCards = PlayerHand(file).Item1;
-            var playerTwoCards = PlayerHand(file).Item2;
+            //var playerOneCards = PlayerHand(file).Item1;
+            //var playerTwoCards = PlayerHand(file).Item2;
 
-            var playerOneHandValues = AllPlayersCardsValue(playerOneCards);
-            var playerTwoHandValues = AllPlayersCardsValue(playerTwoCards);
+            //var playerOneHandValues = AllPlayersCardsValue(playerOneCards);
+            //var playerTwoHandValues = AllPlayersCardsValue(playerTwoCards);
 
-            var winnerPerRound = WinnerOfARound(playerOneHandValues, playerTwoHandValues);
+            //var winnerPerRound = WinnerOfARound(playerOneHandValues, playerTwoHandValues);
 
 
-            var test = PlayerOneWins(winnerPerRound);
-            var test1 = PlayerOneWins(winnerPerRound);
-            return PlayerOneWins(winnerPerRound);
+            //var test = PlayerOneWins(winnerPerRound);
+            //var test1 = PlayerOneWins(winnerPerRound);
+            //return PlayerOneWins(winnerPerRound);
 
+
+
+            return 0;
             //var handTest = HandValue("4S8C9HTSKC");
             //var handTest1 = HandValue("4S8C9HKSKC");
             //var handTest2 = HandValue("4S4C9HKSKC");
@@ -53,37 +57,47 @@ namespace CodeKata
             //};
         }
 
-        private static string ReadFile()
+        public static string ReadFile()
         {
             var url = "https://projecteuler.net/project/resources/p054_poker.txt";
 
             return (new WebClient()).DownloadString(url).Replace(" ", "").Replace("\n", "").ToUpper();
         }
 
-        private static (string[], string[]) PlayerHand(string file)
+        public static bool ValidatePlayersHand(string hand)
         {
-            int counter = file.Length;
-            string[] playerOneCards = new string[counter / lineLenght];
-            string[] playerTwoCards = new string[counter / lineLenght];
-            int x = 0, i = 0, j = halfLineLength;
+            var cardsNoSuit = hand.Replace("H", "").Replace("D", "").Replace("C", "").Replace("S", "");
+            var suitCounter = hand.Count() - cardsNoSuit.Count();
+            var errorHandCounter = Regex.Matches(hand, @"[a-zBEFGILMNOPRUVWXYZ!@#$%^&*]").Count;
+            var errorSuitlessCounter = Regex.Matches(cardsNoSuit, @"BCDEFGHILMNOPRSUVWXYZ]").Count;
 
-            do
-            {
-                playerOneCards[x] = OrderCards(file.Substring(i, halfLineLength));
-                playerTwoCards[x] = OrderCards(file.Substring(j, halfLineLength));
+            if (hand.Length < halfLineLength && cardsNoSuit.Count() == hand.Count() / 2)
+                throw new InvalidOperationException("Not enough cards to play Poker");
 
-                x++;
-                i += lineLenght;
-                j += lineLenght;
+            if (hand.Length > halfLineLength && cardsNoSuit.Count() == hand.Count() / 2)
+                throw new InvalidOperationException("Too many cards to play Poker");
 
-                counter -= lineLenght;
-            } while (counter >= lineLenght);
+            if (cardsNoSuit.Count() != 5 || suitCounter != 5 || errorHandCounter > 0 || errorSuitlessCounter > 0)
+                throw new InvalidOperationException("Invalid set of cards");
 
-            return (playerOneCards, playerTwoCards);
+            return true;
         }
 
-        private static string OrderCards(string hand)
+        public static string[] SplitHandsToCards(string hand)
         {
+            return new string[]
+            {
+                hand.Substring(0, 2),
+                hand.Substring(2, 2),
+                hand.Substring(4, 2),
+                hand.Substring(6, 2),
+                hand.Substring(8, 2),
+            };
+        }
+
+        public static string OrderCards(string hand)
+        {
+            ValidatePlayersHand(hand);
             var cards = SplitHandsToCards(hand);
             var cardsValue = new Dictionary<char, string>()
             {
@@ -110,147 +124,69 @@ namespace CodeKata
             return string.Join(Environment.NewLine, cardsValue.Values).Replace("\r", "").Replace("\n", "");
         }
 
-        private static string[] SplitHandsToCards(string hand)
+        public static (string[], string[]) PlayerHand(string file)
         {
-            return new string[]
+            int counter = file.Length;
+            string[] playerOneCards = new string[counter / lineLenght];
+            string[] playerTwoCards = new string[counter / lineLenght];
+            int x = 0, i = 0, j = halfLineLength;
+
+            do
             {
-                hand.Substring(0, 2),
-                hand.Substring(2, 2),
-                hand.Substring(4, 2),
-                hand.Substring(6, 2),
-                hand.Substring(8, 2),
-            };
+                playerOneCards[x] = OrderCards(file.Substring(i, halfLineLength));
+                playerTwoCards[x] = OrderCards(file.Substring(j, halfLineLength));
+
+                x++;
+                i += lineLenght;
+                j += lineLenght;
+
+                counter -= lineLenght;
+            } while (counter >= lineLenght);
+
+            return (playerOneCards, playerTwoCards);
         }
 
-        private static int CardsToValueConverter(string number)
+        public static int CardsToValueConverter(string value)
         {
-            if (number == "T")
+            if (value == "T")
                 return 10;
 
-            if (number == "J")
+            if (value == "J")
                 return 11;
 
-            if (number == "Q")
+            if (value == "Q")
                 return 12;
 
-            if (number == "K")
+            if (value == "K")
                 return 13;
 
-            if (number == "A")
+            if (value == "A")
                 return 14;
 
-            return Convert.ToInt32(number);
-        }
-
-        private static string[] HandValue(string playerCard)
-        {
-            var handValue = new string[6];
-
-            handValue = ConsecutiveCards(playerCard);
-            if (handValue[0] != null)
-                return handValue;
-
-            handValue = CountPairValue(playerCard);
-            if (handValue[0] != null)
-                return handValue;
-
-            if (HasSameSuits(playerCard))
-            {
-                handValue[0] = "18";
-                handValue[1] = playerCard.Substring(8, 1);
-                return handValue;
-            }
-
-            handValue = HighestCard(playerCard);
-
-            return handValue;
-        }
-
-        private static string[,] AllPlayersCardsValue(string[] playerCard)
-        {
-            int rounds = playerCard.Count();
-            var playerGame = new string[rounds, 6];
-
-            for (int i = 0; i < rounds; i++)
-            {
-                for (int j = 0; j < 6; j++)
-                {
-                    playerGame[i, j] = HandValue(playerCard[i])[j];
-                }
-            }
-
-            return playerGame;
-        }
-
-        private static string[] WinnerOfARound(string[,] playerOne, string[,] playerTwo)
-        {
-            // REMOVE
-            //var one = new string[6];
-            //var two = new string[6];
-
-            int valuePlayerOne = 0, valuePlayerTwo = 0;
-            var winner = new string[1000];
-
-            for (int i = 0; i < 1000; i++)
-            {
-                // REMOVE
-                //for (int x = 0; x < 6; x++)
-                //{
-                //    one[x] = playerOne[i,x];
-                //    two[x] = playerTwo[i,x];
-                //}
-
-                for (int j = 0; j < 6; j++)
-                {
-                    valuePlayerOne = Convert.ToInt32(playerOne[i, j]);
-                    valuePlayerTwo = Convert.ToInt32(playerTwo[i, j]);
-                    winner[i] = "Draw";
-
-                    if (valuePlayerOne > valuePlayerTwo)
-                    {
-                        winner[i] = "Player One";
-                        break;
-                    }
-                        
-                    if (valuePlayerOne < valuePlayerTwo)
-                    {
-                        winner[i] = "Player Two";
-                        break;
-                    }
-                }
-            }
-
-            return winner;
-        }
-
-        private static int PlayerOneWins(string[] rounds)
-        {
-            var counter = 0;
-
-            foreach (var winner in rounds)
-            {
-                if (winner == "Player One")
-                    counter++;
-            }
-
-            return counter;
+            return Convert.ToInt32(value);
         }
 
         // Get Value of Hand
-        private static string[] HighestCard(string hand)
+        public static string[] HighestCard(string hand)
         {
-            var handValue = new string[6];
-            handValue[0] = CardsToValueConverter(hand.Substring(8, 1)).ToString();
-
-            return handValue;
+            return new string[]
+            {
+                CardsToValueConverter(hand.Substring(8, 1)).ToString(),
+                CardsToValueConverter(hand.Substring(8, 1)).ToString(),
+                null,
+                CardsToValueConverter(hand.Substring(6, 1)).ToString(),
+                CardsToValueConverter(hand.Substring(4, 1)).ToString(),
+                CardsToValueConverter(hand.Substring(2, 1)).ToString(),
+                CardsToValueConverter(hand.Substring(0, 1)).ToString(),
+            };
         }
 
-        private static string[] CountPairValue(string hand)
+        internal static string[] CountPairValue(string hand)
         {
             bool HasOnlyOnePair = false, HasTwoPairs = false, HasThreeOfKind = false,
                 HasFullHouse = false, HasFourOfKind = false;
             var counter = new Dictionary<string, int>();
-            var handValue = new string[6];
+            var handValue = new string[7];
             var value = "";
 
             var splitHand = SplitHandsToCards(hand).ToList();
@@ -291,7 +227,7 @@ namespace CodeKata
                 handValue[0] = "16";
                 handValue[1] = counter.LastOrDefault(card => card.Value == 2).Key.ToString();
                 handValue[2] = counter.FirstOrDefault(card => card.Value == 2).Key.ToString();
-                
+
                 for (int i = 0; i < 2; i++)
                 {
                     var indexOne = splitHand.FindIndex(pair => pair.Contains(handValue[1]));
@@ -341,11 +277,11 @@ namespace CodeKata
             return handValue;
         }
 
-        private static bool HasSameSuits(string hand)
+        internal static bool HasSameSuits(string hand)
         {
-            var hasFourSameSuit = hand.Count(h => h == 'H') == 5 || 
-                hand.Count(d => d == 'D') == 5 || 
-                hand.Count(c => c == 'C') == 5 || 
+            var hasFourSameSuit = hand.Count(h => h == 'H') == 5 ||
+                hand.Count(d => d == 'D') == 5 ||
+                hand.Count(c => c == 'C') == 5 ||
                 hand.Count(s => s == 'S') == 5;
 
             if (hasFourSameSuit)
@@ -354,13 +290,13 @@ namespace CodeKata
             return false;
         }
 
-        private static string[] ConsecutiveCards(string hand)
+        internal static string[] ConsecutiveCards(string hand)
         {
             const string straight = "A23456789TJQKA";
             const string royal = "TJQKA";
             var handValue = new string[6];
             var cardsNoSuit = hand.Replace("H", "").Replace("D", "").Replace("C", "").Replace("S", "");
-            
+
 
             if (straight.Contains(cardsNoSuit))
             {
@@ -377,6 +313,101 @@ namespace CodeKata
             }
 
             return handValue;
+        }
+
+        // Get Value of Player
+        internal static string[] HandValue(string playerCard)
+        {
+            var handValue = new string[6];
+
+            handValue = ConsecutiveCards(playerCard);
+            if (handValue[0] != null)
+                return handValue;
+
+            handValue = CountPairValue(playerCard);
+            if (handValue[0] != null)
+                return handValue;
+
+            if (HasSameSuits(playerCard))
+            {
+                handValue[0] = "18";
+                handValue[1] = playerCard.Substring(8, 1);
+                return handValue;
+            }
+
+            handValue = HighestCard(playerCard);
+
+            return handValue;
+        }
+
+        internal static string[,] AllPlayersCardsValue(string[] playerCard)
+        {
+            int rounds = playerCard.Count();
+            var playerGame = new string[rounds, 6];
+
+            for (int i = 0; i < rounds; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    playerGame[i, j] = HandValue(playerCard[i])[j];
+                }
+            }
+
+            return playerGame;
+        }
+
+        internal static string[] WinnerOfARound(string[,] playerOne, string[,] playerTwo)
+        {
+            // REMOVE
+            var one = new string[6];
+            var two = new string[6];
+
+            int valuePlayerOne = 0, valuePlayerTwo = 0;
+            var winner = new string[1000];
+
+            for (int i = 0; i < 1000; i++)
+            {
+                // REMOVE
+                for (int x = 0; x < 6; x++)
+                {
+                    one[x] = playerOne[i, x];
+                    two[x] = playerTwo[i, x];
+                }
+
+                for (int j = 0; j < 6; j++)
+                {
+                    valuePlayerOne = Convert.ToInt32(playerOne[i, j]);
+                    valuePlayerTwo = Convert.ToInt32(playerTwo[i, j]);
+                    winner[i] = "Draw";
+
+                    if (valuePlayerOne > valuePlayerTwo)
+                    {
+                        winner[i] = "Player One";
+                        break;
+                    }
+                        
+                    if (valuePlayerOne < valuePlayerTwo)
+                    {
+                        winner[i] = "Player Two";
+                        break;
+                    }
+                }
+            }
+
+            return winner;
+        }
+
+        internal static int PlayerOneWins(string[] rounds)
+        {
+            var counter = 0;
+
+            foreach (var winner in rounds)
+            {
+                if (winner == "Player One")
+                    counter++;
+            }
+
+            return counter;
         }
     }
 }
