@@ -116,7 +116,7 @@ namespace Tests
         public void HighestCard_ReturnsValueOfHandWithHighestCard()
         {
             var hand = "2C3C4C5CAC";
-            var expectedResult = new string[] { "14", "14", null, "5", "4", "3", "2" };
+            var expectedResult = new int[] { 14, 14, 0, 5, 4, 3, 2 };
 
             var result = CodeKata_11.HighestCard(hand);
 
@@ -126,25 +126,218 @@ namespace Tests
 
 
         [Theory]
-        [InlineData()]
-        public void CountPairValue_ReturnsValueOfHandWithHighestCard()
+        [MemberData(nameof(ValueHandOfPairs))]
+        public void CountPairValue_ReturnsValueOfHandWithHighestCard(
+            string hand,
+            int value,
+            int highPair,
+            int lowPair,
+            int highRemainderCard,
+            int mediumRemainderCard,
+            int lowRemainderCard,
+            int lastRemainderCard)
         {
-            var hand = "2C3C4C5CAC";
-            var expectedResult = new string[] { "14", "14", null, "5", "4", "3", "2" };
+            var expectedResult = new int[]
+            {
+                value,
+                highPair,
+                lowPair,
+                highRemainderCard,
+                mediumRemainderCard,
+                lowRemainderCard,
+                lastRemainderCard,
+            };
 
-            var result = CodeKata_11.HighestCard(hand);
+            var result = CodeKata_11.CountPairValue(hand);
 
             result.Should().HaveCount(7);
             result.Should().BeEquivalentTo(expectedResult);
         }
 
-        public static IEnumerable<object[]> ValueHand =>
+
+        [Theory]
+        [InlineData("2C3C4C5CAC", true)]
+        [InlineData("2C3D4H5SAC", false)]
+        [InlineData("2C3C4C5CAD", false)]
+        public void HasSameSuits_ReturnsCorrectBoolean(string hand, bool expectedResult)
+        {
+            var result = CodeKata_11.HasSameSuits(hand);
+
+            result.Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [MemberData(nameof(ValueHandOfConsecutives))]
+        public void ConsecutiveCards_ReturnsValueOfHandWithHighestCard(
+            string hand,
+            int value,
+            int highPair)
+        {
+            var expectedResult = new int[]
+            {
+                value,
+                highPair,
+                0,
+                0,
+                0,
+                0,
+                0,
+            };
+
+            var result = CodeKata_11.ConsecutiveCards(hand);
+
+            result.Should().HaveCount(7);
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Theory]
+        [MemberData(nameof(ValueHandOfDifferentHands))]
+        public void HandValue_ReturnsValueOfHandWithHighestCard(
+            string hand,
+            int value,
+            int highPair,
+            int lowPair,
+            int highRemainderCard,
+            int mediumRemainderCard,
+            int lowRemainderCard,
+            int lastRemainderCard)
+        {
+            var expectedResult = new int[]
+            {
+                value,
+                highPair,
+                lowPair,
+                highRemainderCard,
+                mediumRemainderCard,
+                lowRemainderCard,
+                lastRemainderCard,
+            };
+
+            var result = CodeKata_11.HandValue(hand);
+
+            result.Should().HaveCount(7);
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Fact]
+        public void AllPlayersCardsValue_ReturnsPlayersValuedHands()
+        {
+            var playerHand = new string[]
+            {
+                "2C3C4S5D9C",
+                "2C4C4H4DJC",
+                "3D5D6D9DQD",
+                "2C2D9C9S9H",
+                "TSJSQSKSAS"
+            };
+
+            var expectedResult = new int[,]
+            {
+                { 9, 9, 0, 5, 4, 3, 2 },    // Highest 9
+                { 17, 4, 0, 11, 2, 0, 0 },  // 3 of a Kind of 4s
+                { 19, 12, 0, 9, 6, 5, 3 },  // Flush
+                { 20, 9, 2, 0, 0, 0, 0 },   // 1 Pairs of 2s and 3 of Kind of 9s
+                { 23, 14, 0, 0, 0, 0, 0 }   // Royal Flush
+            };
+
+            var result = CodeKata_11.AllPlayersCardsValue(playerHand);
+
+            result.Should().BeOfType<int[,]>();
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Fact]
+        public void WinnerOfARound_ReturnsWinnerOfTheRound()
+        {
+            var playerOneHand = new int[,]
+            {
+                { 15, 13, 0, 5, 3, 2, 0 },
+                { 17, 11, 0, 10, 2, 0, 0 },
+                { 19, 11, 0, 9, 7, 5, 2 },
+                {  7, 7, 0, 5, 4, 3, 2 },
+                { 19, 12, 0, 9, 6, 5, 3 }
+            };
+            var playerTwoHand = new int[,]
+            {
+                { 15, 5, 0, 13, 3, 2, 0 },
+                { 16, 14, 12, 2, 0, 0, 0 },
+                { 20, 3, 10, 0, 0, 0, 0 },
+                { 7, 7, 0, 5, 4, 3, 2 },
+                { 17, 4, 0, 11, 2, 0, 0 }
+            };
+            var expectedResult = new string[]
+            {
+                "Player One",
+                "Player One",
+                "Player Two",
+                "Draw",
+                "Player One"
+            };
+
+            var result = CodeKata_11.WinnerOfARound(playerOneHand, playerTwoHand).Item1;
+
+            result.Should().BeOfType<string[]>();
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Fact]
+        public void PlayerOneWins_ReturnsNumberOfPlayerOneWins()
+        {
+            var winners = new string[]
+            {
+                "Player One",
+                "Player One",
+                "Player Two",
+                "Draw",
+                "Player One"
+            };
+            var expectedNumber = 3;
+
+            var result = CodeKata_11.PlayerOneWins(winners);
+
+            result.Should().Be(expectedNumber);
+        }
+
+        public static IEnumerable<object[]> ValueHandOfPairs =>
         new List<object[]>
         {
-            new object[] { 1, 2, 3 },
-            new object[] { -4, -6, -10 },
-            new object[] { -2, 2, 0 },
-            new object[] { int.MinValue, -1, int.MaxValue },
+            new object[] { "2C3C4C5CAC", 0, 0, 0, 0, 0, 0, 0 },     // No Pairs
+            new object[] { "2C3C5C5DKC", 15, 5, 0, 13, 3, 2, 0 },   // 1 Pair of 5s
+            new object[] { "2C2D5C5DQC", 16, 5, 2, 12, 0, 0, 0 },   // 2 Pairs of 5s and 2s
+            new object[] { "2CTCTHTDJC", 17, 10, 0, 11, 2, 0, 0 },  // 3 of a Kind of Ts
+            new object[] { "3C3D3HTSTH", 20, 3, 10, 0, 0, 0, 0 },   // 1 Pairs of Ts and 3 of Kind of 3s
+            new object[] { "3C3D3H3SJH", 21, 3, 0, 11, 0, 0, 0 },   // 4 of a Kind of 3s
+        };
+
+        public static IEnumerable<object[]> ValueHandOfConsecutives =>
+        new List<object[]>
+        {
+            new object[] { "2C4C6CTCAC", 0, 0 },     // No Straights
+            new object[] { "2C3C5C6D7C", 0, 0 },     // No Straights
+            new object[] { "2C3D4C5SAH", 18, 5 },    // Straights with A-5
+            new object[] { "3H4C5H6D7C", 18, 7 },    // Straights with 3-7
+            new object[] { "TCJCQHKDAS", 18, 14 },   // Straights with T-A
+            new object[] { "2C3C4C5CAC", 22, 5 },    // Straights Flush with A-5
+            new object[] { "3S4S5S6S7S", 22, 7 },    // Straights Flush with 3-7
+            new object[] { "9STSJSQSKS", 22, 13 },   // Straights Flush with 9-K
+            new object[] { "TSJSQSKSAS", 23, 14 }     // Royal Flush
+        };
+
+        public static IEnumerable<object[]> ValueHandOfDifferentHands =>
+        new List<object[]>
+        {
+            new object[] { "2C3C4S5D7C", 7, 7, 0, 5, 4, 3, 2 },     // Highest 7
+            new object[] { "2C3C6STDKC", 13, 13, 0, 10, 6, 3, 2 },  // Highest K
+            new object[] { "2C3C6S9DAC", 14, 14, 0, 9, 6, 3, 2 },   // Highest A
+            new object[] { "2C3C5CKDKC", 15, 13, 0, 5, 3, 2, 0 },   // 1 Pair of Ks
+            new object[] { "2CQDQCADAC", 16, 14, 12, 2, 0, 0, 0 },  // 2 Pairs of Qs and As
+            new object[] { "2CTCJHJDJC", 17, 11, 0, 10, 2, 0, 0 },  // 3 of a Kind of Js
+            new object[] { "TCJCQHKDAS", 18, 14, 0, 0, 0, 0, 0 },   // Straights with T-A
+            new object[] { "2C5C7C9CJC", 19, 11, 0, 9, 7, 5, 2 },   // Flush
+            new object[] { "QCQDQHASAH", 20, 12, 14, 0, 0, 0, 0 },  // 1 Pairs of As and 3 of Kind of Qs
+            new object[] { "3CTDTHTSTC", 21, 10, 0, 3, 0, 0, 0 },   // 4 of a Kind of Ts          
+            new object[] { "9HTHJHQHKH", 22, 13, 0, 0, 0, 0, 0 },   // Straights Flush with 9-K
+            new object[] { "TCJCQCKCAC", 23, 14, 0, 0, 0, 0, 0 }    // Royal Flush
         };
     }
 }

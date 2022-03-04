@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            CodeKata_11.WinRateOfPlayerOne();
+            System.Console.WriteLine(CodeKata_11.WinRateOfPlayerOne());
         }
     }
 }
