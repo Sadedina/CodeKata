@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine(CodeKata_11.WinRateOfPlayerOne());
+            System.Console.WriteLine(CodeKata_12.MultipleOfThreeAndFive(1000));
         }
     }
 }

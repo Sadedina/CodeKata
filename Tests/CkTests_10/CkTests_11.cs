@@ -8,15 +8,6 @@ namespace Tests
 {
     public class CkTests_11
     {
-        /*  ==================================== Test Case Contents =======================================
-         *
-         *  1 - 
-         *  2 - 
-         *  3 - 
-         *  3 - 
-         */
-
-
         [Theory]
         [InlineData(" ")]
         [InlineData("\n")]
