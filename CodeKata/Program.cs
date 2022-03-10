@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine(CodeKata_12.MultipleOfThreeAndFive(1000));
+            System.Console.WriteLine(CodeKata_13.DimColour(System.Drawing.Color.Black, System.Drawing.Color.White));
         }
     }
 }
