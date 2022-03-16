@@ -1,10 +1,18 @@
-﻿namespace CodeKata
+﻿using System.Collections.Generic;
+
+namespace CodeKata
 {
     class Program
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine(CodeKata_13.DimColour(System.Drawing.Color.Black, System.Drawing.Color.White));
+            var time = new List<int?>()
+            {
+                5, 10, 13, 15, 15
+            };
+
+            //CodeKata_14.LastStopeWatches(time);
+            CodeKata_14.SmartHome();
         }
     }
 }
