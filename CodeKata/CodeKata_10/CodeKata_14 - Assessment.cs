@@ -36,11 +36,11 @@
     The Organiser is useful for maintaining lists of items, like to-do lists or shopping lists. 
     The organiser has the capability of saving 2 lists with their created date times and displaying 
     them back to the user when requested. It accepts the following commands: 
-    •	STORELIST[items]: This should create a new list that stores the specified items. 
+    •   STORELIST[items]: This should create a new list that stores the specified items. 
     E.g. STORELIST [Applex10, Bananax24] creates a list that stores Applex10 and Bananax24 as its elements. 
     The lists are treated as list 1 or 2 based on their creation date and time. 
-    If the user calls STORELIST and 2 lists already exists, the user should be notified of that the contents 
-    of the lists should be returned back to the user in the format specified in RETURNLISTS. 
+    If the user calls STORELIST and 2 lists already exists, the user should be notified of that.
+    The contents of the lists should be returned back to the user in the format specified in RETURNLISTS. 
 
     •	RETURNLISTS: This should return the stored lists to the user in the specified format. 
     E.g. the list [Applex10, Bananax24, GrapeBoxesx5] should be returned as 
@@ -51,7 +51,7 @@
     Bananax24
     GrapeBoxesx5
 
-    •	DELETELIST_<list_num> : The command deletes the list specified but the list num. 
+    •DELETELIST_<list_num> : The command deletes the list specified but the list num. 
     E.g. DELETELIST_1 will delete list 1. List 2 will not become List 1 until a new list has been inserted.
     Therefore DELETELIST_2 after using DELETELIST_1 is a valid command.
 
