@@ -132,14 +132,14 @@ namespace CodeKata
 				ClockScript();
                 Console.WriteLine("\n__________   Date and Time   __________");
 				Console.WriteLine($"\nCurrent Date and Time is:\n{DateTime.Now}");
-				Console.WriteLine("\nPress e exit");
+				Console.WriteLine("\nPress any key to exit");
 
 				if (Console.KeyAvailable)
 				{
 					ConsoleKeyInfo cki = Console.ReadKey();
-					if (cki.Key.ToString().ToLower() == "e")
-						exit = false;
+					exit = false;
 				}
+
 				Thread.Sleep(850);
 			} while (exit);
 		}
@@ -157,16 +157,20 @@ namespace CodeKata
 			}
 
 			var time = Int32.Parse(timeInString);
+			Thread.Sleep(250);
 			Console.WriteLine($"\nTimer for {time} starting now");
-			Console.Write($"Countdown");
 
-			for (int i = time; i > 0; i--)
+			for (int i = time; i >= 0; i--)
 			{
+				Console.Clear();
+				ClockScript();
+				Console.WriteLine("\n__________   Stop Watch   __________");
+				Console.WriteLine($"\nTimer for {time} starting now");
+				Console.WriteLine($"Timer: {i}");
 				Thread.Sleep(1000);
-				Console.Write(".");
 			}
 
-			Console.WriteLine($"\n\nTimer terminated!!!");
+			Console.WriteLine($"\nTimer terminated!!!");
 
 			Console.WriteLine("\nPress any key to exit");
 			var exit = Console.ReadKey();
@@ -207,8 +211,7 @@ namespace CodeKata
 
 		public static List<string[]> OrganiserMode(List<string[]> organiser)
 		{
-			
-			var option = "";
+			string option, optionCaseSensitive;
 
 			do
 			{
@@ -217,21 +220,19 @@ namespace CodeKata
 				OrganiserScript();
 
 				Console.Write("\nEnter your selection: ");
-				option = Console.ReadLine().Trim();
+				optionCaseSensitive = Console.ReadLine().Trim();
+				option = optionCaseSensitive.ToLower();
 
-				if (option.ToLower().StartsWith("storelist["))
-				{
-					organiser = Storelist(organiser, option);
-				}
-				else if (option.ToLower().Contains("returnlists"))
-				{
-					// TODO
-				}
-				else if (option.ToLower().Contains("deletelist_"))
-				{
-					// TODO
-				}
-				else if (option.ToLower() == "e")
+				if (option.StartsWith("storelist["))
+					organiser = Storelist(organiser, optionCaseSensitive);
+
+				else if (option.Contains("returnlists"))
+					Returnlist(organiser);
+
+				else if (option.Contains("deletelist_"))
+					organiser = Deletelist(organiser, option);
+
+				else if (option == "e")
 					break;
 
 				else
@@ -247,18 +248,33 @@ namespace CodeKata
 
 		public static List<string[]> Storelist(List<string[]> storage, string list)
 		{
-			ClockScript();
+			OrganiserScript();
 			Console.WriteLine("\n__________   Store List   __________");
 
+			ConsoleKeyInfo exit;
 			var time = DateTime.Now;
-			var shoppingList = $"{time}," + list.Remove(list.Length - 1, 1).Replace(" ", "").Remove(0, 10);
+			var refactoredList = list.Remove(list.Length - 1, 1).Replace(" ", "").Remove(0, 10);
+			var shoppingList = $"{time}," + refactoredList;
 			storage[2] = shoppingList.Split(',');
+
+			if (refactoredList == "")
+			{
+				Console.WriteLine("\nList is empty. This cannot be added to the database.\nPlease, try again.");
+
+				Console.WriteLine("\nPress any key to exit");
+				exit = Console.ReadKey();
+				return storage;
+			}
+
 
 			if (storage[0] != null && storage[1] != null)
             {
 				Console.WriteLine("\nTwo lists already exists in Storelist!");
                 Console.WriteLine($"List 1 created at {storage[0][0]}");
                 Console.WriteLine($"List 2 created at {storage[1][0]}");
+
+				Console.WriteLine("\nPress any key to exit");
+				exit = Console.ReadKey();
 				return storage;
 			}
 
@@ -293,51 +309,70 @@ namespace CodeKata
 			Console.WriteLine($"\n\nStorelist has been created at {time}");
 
 			Console.WriteLine("\nPress any key to exit");
-			var exit = Console.ReadKey();
+			exit = Console.ReadKey();
 
 			return storage;
 		}
 
 		public static void Returnlist(List<string[]> storage)
 		{
-			ClockScript();
+			OrganiserScript();
 			Console.WriteLine("\n__________   Return List   __________");
 
-			if (storage[0] != null)
-			{
-				Console.WriteLine("\nList 1:" +
-					$"\nDate Created: {storage[0][0]}" +
-					"\nItems: ");
-                for (int i = 1; i <= storage[0].Count(); i++)
-                    Console.WriteLine(storage[0][0]);
-			}
-			else if (storage[1] != null)
-			{
-				Console.WriteLine("\nList 2:" +
-					$"\nDate Created: {storage[1][0]}" +
-					"\nItems: ");
-				for (int i = 1; i <= storage[1].Count(); i++)
-					Console.WriteLine(storage[1][0]);
-			}
+            for (int i = 0; i < 2; i++)
+            {
+                Console.WriteLine("");
 
-			if (storage[0] == null)
-			{
-				var num = 1;
-
-				if (storage[1] == null)
-					num = 2;
-
-				for (int i = 0; i < num; i++)
+				if (storage[0] == null && storage[1] == null)
+                {
+                    Console.WriteLine("There's no List saved in the database");
+					break;
+                }
+				else if (storage[i] != null)
 				{
-					storage.RemoveAt(0);
-					storage.Add(null);
-				}
-			}
+					Console.WriteLine($"List {i + 1}:" +
+						$"\nDate Created: {storage[i][0]}" +
+						"\nItems: ");
 
-			if (storage[0] != null && storage[1] == null)
+					for (int j = 1; j < storage[i].Count(); j++)
+						Console.WriteLine(storage[i][j]);
+				}
+                else
+					Console.WriteLine($"List {i + 1} does not exist");
+			};
+
+			Console.WriteLine("\nPress any key to exit");
+			var exit = Console.ReadKey();
+		}
+
+		public static List<string[]> Deletelist(List<string[]> storage, string listNumber)
+		{
+			OrganiserScript();
+			Console.WriteLine("\n__________   Delete List   __________");
+
+			ConsoleKeyInfo exit;
+			var toDelete = listNumber.Replace("deletelist_", "");
+
+			if (Regex.Replace(toDelete, @"[1-2]", "") != "")
 			{
-				storage.RemoveAt(1);
-				storage.Add(null);
+				Console.WriteLine($"\nThe following value [{toDelete}] is not valid\nPlease, retry again");
+				Thread.Sleep(250);
+
+				Console.WriteLine("\nPress any key to exit");
+				exit = Console.ReadKey();
+				return storage;
+			}
+			
+			var pos = Convert.ToInt32(toDelete) - 1;
+
+			if (storage[pos] == null)
+            {
+				Console.WriteLine($"\nThe List {toDelete} is empty. You can only delete a list with content");
+				Thread.Sleep(250);
+
+				Console.WriteLine("\nPress any key to exit");
+				exit = Console.ReadKey();
+				return storage;
 			}
 
 			Console.Write("\nProcessing");
@@ -348,13 +383,20 @@ namespace CodeKata
 				Thread.Sleep(250);
 			}
 
-			Console.WriteLine($"\n\nStorelist has been created at {storage}");
+			var time = storage[pos][0];
+			storage[pos] = null;
+
+			Console.WriteLine($"\n\nThe List {toDelete} created at {time} has now been deleted");
+			
+			Thread.Sleep(250);
 
 			Console.WriteLine("\nPress any key to exit");
-			var exit = Console.ReadKey();
+			exit = Console.ReadKey();
 
+			return storage;
 		}
 		#endregion
+
 
 	}
 }

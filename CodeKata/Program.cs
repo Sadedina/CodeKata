@@ -9,24 +9,33 @@ namespace CodeKata
         {
             CodeKata_14.SmartHome();
 
-            var time = new List<int?>()
-            {
-                5, 10, 13, 15, 15
-            };
+            /* Input
+             * 
+             * CloCk
+             *  EXIT
+             *  CUrrENTdT
+             *  STopW_5
+             *  LastSTopwTImerS
+             * 
+             * OrGANiser
+             *  EXIT
+             *  STorelIST[]
+             *  STorelIST[Applex10, Bananax24]
+             *  STORElist[Applex10, Bananax24, Orangex2, Lemonx23]
+             *  REturnLisTS
+             *  DeletELIST_1
+             *  
+             * Lighting
+             * Reset
+             * Exit
+             * 
 
-            var storage = new List<string[]>
-            {
-                //new string[] { DateTime.Now.ToString(), "Applex10", "Bananax24"},
-                null,
-                null
-                //new string[] { DateTime.Now.ToString(), "Applex10", "Bananax24"}
-                //new string[] { DateTime.Now.AddMinutes(10).ToString(), "Applex10", "Bananax24"}
-            };
-
-            //CodeKata_14.LastStopeWatches(time);
-            //CodeKata_14.Storelist(storage, "STORELIST[Applex10, Bananax24]");
-            //CodeKata_14.OrganiserMode(storage);
-            
+             * 
+             * 
+             * 
+             * 
+             * 
+             */
         }
     }
 }
