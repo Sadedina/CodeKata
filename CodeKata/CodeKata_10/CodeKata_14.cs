@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace CodeKata
 {
-	public class CodeKata_14
+    public class CodeKata_14
 	{
 		public static void SmartHome()
         {
@@ -23,6 +23,19 @@ namespace CodeKata
 				null,
 				null
             };
+			var lights = new Time[]
+			{
+				new Time()
+				{
+					Hours = 18,
+					Minutes = 00
+				},
+				new Time()
+				{
+					Hours = 00,
+					Minutes = 00
+				}
+			};
 
 			do
             {
@@ -32,7 +45,7 @@ namespace CodeKata
 				"Please choose one of the following options by typing it in the console and pressing Enter\n" +
 				" 1. Clock\n" +
 				" 2. Organiser\n" +
-				" 3. Lighting\n" +
+				" 3. Lights\n" +
 				" 4. Reset\n" +
 				" 5. Exit\n");
 
@@ -48,13 +61,17 @@ namespace CodeKata
 						organiser = OrganiserMode(organiser);
 						break;
 					case "lights":
+						lights = LightsMode(lights); //TODO
 						break;
 					case "reset":
+						ResetMode(out clock, out organiser, out lights);
 						break;
 					case "exit":
+						ExitMode();
 						break;
 					default:
                         Console.WriteLine("Your input was not recognised. Please try again");
+						Thread.Sleep(1000);
 						break;
 				}
 
@@ -397,6 +414,229 @@ namespace CodeKata
 		}
 		#endregion
 
+		#region Lights
+		private static void LightsScript()
+		{
+			Console.Clear();
 
+			Console.WriteLine("\n==========================   Welcome to your Smart Home controller   ==========================\n" +
+				"\t\t\t     ********** Lights MODE ********** \n\n" +
+				"All subsequent commands would be treated as commands for the lights");
+
+			Console.WriteLine("--------------------------------------------------------------------------------------------------------------" +
+				"\n Available commands\n" +
+				"  * RETURN_AUTO_OFF: Returns the AUTO_OFF time to the user.\n" +
+				"  * RETURN_AUTO_ON: Returns the AUTO_ON time to the user.\n" +
+				"  * CHANGE_AUTO_OFF_<integer>:  Changes the AUTO_OFF value to the one specified by the user.\n" +
+				"  * CHANGE_AUTO_ON_<integer>: Changes the AUTO_ON value to the one specified by the user.\n" +
+				"  * LIGHT_STATUS: Returns the user ON if the lights are turned on and OFF if lights are off.\n" +
+				"  * E: exit\n--------------------------------------------------------------------------------------------------------------");
+		}
+
+		public static Time[] LightsMode(Time[] lights)
+		{
+			string option, optionCaseSensitive;
+
+			do
+			{
+				Console.Clear();
+				LightsScript();
+				ConsoleKeyInfo exit;
+
+				Console.Write("\nEnter your selection: ");
+				optionCaseSensitive = Console.ReadLine().Trim();
+				option = optionCaseSensitive.ToLower();
+
+				if (option.StartsWith("return_auto_off"))
+					LightAutoStatus(lights, 1);
+
+				else if (option.StartsWith("return_auto_on"))
+					LightAutoStatus(lights, 0);
+
+				else if (option.StartsWith("change_auto_off_"))
+				{
+					var temp = Time(option.Remove(0, 16));
+
+					if (temp != null)
+                    {
+						lights[1] = temp;
+						Console.WriteLine($"\nAuto Off has been changes to {lights[1].ToString()}");
+					}
+
+					Console.WriteLine("\nPress any key to exit");
+					exit = Console.ReadKey();
+				}
+				else if (option.StartsWith("change_auto_on_"))
+				{
+					var temp = Time(option.Remove(0, 15));
+
+					if (temp != null)
+                    {
+						lights[0] = temp;
+						Console.WriteLine($"\nAuto On has been changes to {lights[0].ToString()}");
+					}
+
+					Console.WriteLine("\nPress any key to exit");
+					exit = Console.ReadKey();
+				}
+				else if (option.Contains("light_status"))
+					LightStatus(lights);
+
+				else if (option == "e")
+					break;
+
+				else
+				{
+					Console.WriteLine("\nUnfortunately your input was not recognized. Please, type your input again.");
+					Thread.Sleep(3000);
+				}
+
+			} while (option.ToLower() != "e");
+
+			return lights;
+		}
+
+		public static Time Time(string time)
+		{
+			if (Regex.Replace(time, @"[0-9]", "") != "" || time.Count() != 4 || Int32.Parse(time) > 2400)
+			{
+				Console.WriteLine("\nInputted Time is not valid\nPlease, retry again");
+				return null;
+			}
+
+			Console.Clear();
+			LightsScript();
+			Console.WriteLine("\n__________   Light Change Settings   __________");
+
+			if (Int32.Parse(time) == 2400)
+				return new Time()
+				{
+					Hours = 00,
+					Minutes = 00
+				};
+
+			return new Time()
+			{
+				Hours = Int32.Parse(time.Remove(2, 2)),
+				Minutes = Int32.Parse(time.Remove(0, 2))
+			};
+		}
+
+		public static void LightAutoStatus(Time[] lights, int status)
+		{
+			LightsScript();
+			Console.WriteLine("\n__________   Light View Settings   __________");
+
+			ConsoleKeyInfo exit;
+
+			if (status == 0)
+				Console.WriteLine($"\nAuto On: {lights[status].ToString()}");
+
+			if (status == 1)
+				Console.WriteLine($"\nAuto Off: {lights[status].ToString()}");
+
+			Console.WriteLine("\nPress any key to exit");
+			exit = Console.ReadKey();
+
+		}
+
+		public static void LightStatus(Time[] lights)
+		{
+			LightsScript();
+			Console.WriteLine("\n__________   Light Status   __________");
+
+			ConsoleKeyInfo exit;
+			var ct = new Time()
+			{
+				Hours = DateTime.Now.Hour,
+				Minutes = DateTime.Now.Minute
+			};
+			var time = TimeSpan.Parse(ct.ToString());
+			var on = TimeSpan.Parse(lights[0].ToString());
+			var off = TimeSpan.Parse(lights[1].ToString());
+
+			// Auto on 18:00 and auto off 00:00
+			if (new TimeSpan(0) <= off && off <= on)
+				off = +new TimeSpan(24);
+
+			if (on <= time && time <= off)
+				Console.WriteLine("\nLights are currently ON!!");
+			else
+				Console.WriteLine("\nLights are currently OFF!!");
+
+			Console.WriteLine("\nPress any key to exit");
+			exit = Console.ReadKey();
+		}
+		#endregion
+
+		#region Reset
+		private static void ResetScript()
+		{
+			Console.Clear();
+
+			Console.WriteLine("\n==========================   Welcome to your Smart Home controller   ==========================\n" +
+				"\t\t\t\t********** Reset MODE ********** ");
+		}
+
+		public static void ResetMode(out List<int?>  clock, out List<string[]> organiser, out Time[] lights)
+		{
+			ResetScript();
+
+			clock = new List<int?>();
+			organiser = new List<string[]>
+			{
+				null,
+				null,
+				null
+			};
+			lights = new Time[]
+			{
+				new Time()
+				{
+					Hours = 18,
+					Minutes = 00
+				},
+				new Time()
+				{
+					Hours = 00,
+					Minutes = 00
+				}
+			};
+
+			Console.Write("\nResetting");
+
+			for (int i = 0; i < 5; i++)
+			{
+				Console.Write(".");
+				Thread.Sleep(250);
+			}
+
+			Console.WriteLine($"\n\nAll data has been reset to default values");
+		}
+		#endregion
+
+		#region Exit
+		public static void ExitMode()
+		{
+			Console.WriteLine("--------------------------------------------------------------------------------------------------------------" +
+			"\n\n--------------------------------------------------------------------------------------------------------------" +
+				"\n\nThank you for using this application\n" +
+				"Till next time\n" +
+				"\nBYE!!\n\n");
+		}
+		#endregion
+	}
+
+	public class Time
+    {
+		public int Hours { get; set; }
+		public int Minutes { get; set; }
+
+		public override string ToString()
+		{
+			return String.Format(
+				"{0:00}:{1:00}",
+				this.Hours, this.Minutes);
+		}
 	}
 }

@@ -25,7 +25,13 @@ namespace CodeKata
              *  REturnLisTS
              *  DeletELIST_1
              *  
-             * Lighting
+             * LiGHts
+             *  return_aUto_OFF
+             *  retuRn_auto_ON
+             *  ChanGe_AuTo_Off_0100
+             *  ChanGe_AuTo_On_2200
+             *  lIghT_STatus
+             * 
              * Reset
              * Exit
              * 
