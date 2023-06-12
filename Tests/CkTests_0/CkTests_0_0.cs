@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Tests
 {
-    class CkTests_0_0
+    public class CkTests_0_0
     {
         [Test]
         public void WhenGivenAnEmptyArray_Function_ReturnsException()
