@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.3" />
+    <ProjectReference Include="..\SoftwareCrafters\SoftwareCrafters.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Module1\" />
   </ItemGroup>
 
 </Project>

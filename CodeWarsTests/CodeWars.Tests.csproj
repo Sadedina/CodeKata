@@ -11,4 +11,9 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CodeKata\CodeKata.csproj" />
+    <ProjectReference Include="..\CodeWars\CodeWars.csproj" />
+  </ItemGroup>
+
 </Project>
