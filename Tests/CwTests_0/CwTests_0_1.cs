@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Tests.CwTests_0;
 
 [TestFixture]
-public class CwTests_0_0
+public class CwTests_0_1
 {
     [Test]
     public void Tests()
