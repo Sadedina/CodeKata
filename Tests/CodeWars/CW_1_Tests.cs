@@ -53,7 +53,7 @@ public class CW_1_Tests
     }
 
     [Test]
-    public static void OneLetter_ReturnsUpperCaseLetter()
+    public static void Accum_GivenOneLetter_ReturnsUpperCaseLetter()
     {
         var result = CodeWar_1.Accum("a");
         var expected = "A";
@@ -62,7 +62,7 @@ public class CW_1_Tests
     }
 
     [Test]
-    public static void TwoLetter_ReturnsCorrectLetters()
+    public static void Accum_GivenTwoLetter_ReturnsCorrectLetters()
     {
         var result = CodeWar_1.Accum("ab");
         var expected = "A-Bb";
@@ -71,7 +71,7 @@ public class CW_1_Tests
     }
 
     [Test]
-    public static void ThreeLetter_ReturnsCorrectLetters()
+    public static void Accum_GivenThreeLetter_ReturnsCorrectLetters()
     {
         var result = CodeWar_1.Accum("abc");
         var expected = "A-Bb-Ccc";
@@ -79,5 +79,4 @@ public class CW_1_Tests
         Assert.AreEqual(expected, result);
     }
     #endregion
-
 }
