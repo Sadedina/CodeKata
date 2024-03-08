@@ -1,16 +1,22 @@
 ﻿/*
 *                                  CodeWars Number 3
 *                                  Price of Mangoes
-*           https://www.codewars.com/kata/57a77726bb9944d000000b06
+*               https://www.codewars.com/kata/57a77726bb9944d000000b06
+*                          Sum a list but ignore any duplicates
+*               https://www.codewars.com/kata/5993fb6c4f5d9f770c0000f2
+*
 */
 
 namespace CodeWars
 {
     public static class CodeWar_3
     {
+        #region Price of Mangoes
         public static int Mango(int quantity, int price)
             => price * (quantity - quantity / 3);
+        #endregion
 
+        #region Sum a list but ignore any duplicates
         public static int SumNoDuplicates(int[] arr)
         {
             var arrToList = new List<int>();
@@ -55,5 +61,6 @@ namespace CodeWars
 
             return newArr.Sum();
         }
+        #endregion
     }
 }

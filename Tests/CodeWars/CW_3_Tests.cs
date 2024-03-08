@@ -6,6 +6,7 @@ namespace Tests.CodeWars;
 [TestFixture]
 public class CW_3_Tests
 {
+    #region Price of Mangoes
     [Test]
     public void Mango_GivenOneMango_ReturnsThree()
         => Assert.AreEqual(3, CodeWar_3.Mango(1, 3));
@@ -40,7 +41,9 @@ public class CW_3_Tests
         Assert.AreEqual(6, CodeWar_3.Mango(3, 3));
         Assert.AreEqual(30, CodeWar_3.Mango(9, 5));
     }
+    #endregion
 
+    #region Sum a list but ignore any duplicates
     [TestCase(new int[] { 1 }, 1)]
     [TestCase(new int[] { 1, 2, 3 }, 6)]
     [TestCase(new int[] { 1, 2, 3, 4 }, 10)]
@@ -65,4 +68,5 @@ public class CW_3_Tests
         Assert.AreEqual(5, CodeWar_3.SumNoDuplicates(new int[] { 1, 1, 2, 3 }));
         Assert.AreEqual(3, CodeWar_3.SumNoDuplicates(new int[] { 1, 1, 2, 2, 3 }));
     }
+    #endregion
 }
