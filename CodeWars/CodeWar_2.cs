@@ -1,9 +1,9 @@
 ﻿/*
 *                                  CodeWars Number 2
 *                                  What century is it?
-*           https://www.codewars.com/kata/52fb87703c1351ebd200081f/train/csharp
-*
-*           https://www.codewars.com/kata/52685f7382004e774f0001f7
+*               https://www.codewars.com/kata/52fb87703c1351ebd200081f/train/csharp
+*                                   Human Readable Time
+*                   https://www.codewars.com/kata/52685f7382004e774f0001f7
 */
 
 namespace CodeWars
