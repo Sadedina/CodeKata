@@ -4,7 +4,7 @@ using SoftwareCrafters;
 namespace Tests.SoftwareCrafters;
 
 [TestFixture]
-public class SF_Module1Tests
+public class SF_Module_1_Tests
 {
     [TestCase(2004)]
     [TestCase(2008)]
@@ -12,7 +12,7 @@ public class SF_Module1Tests
     [TestCase(2016)]
     public void LeapYearCalculator_GivenAYearDivisibleByFour_ReturnsTrue(int year)
     {
-        var result = SF_Module1.LeapYearCalculator(year);
+        var result = SF_Module_1.LeapYearCalculator(year);
 
         Assert.IsTrue(result);
     }
@@ -23,7 +23,7 @@ public class SF_Module1Tests
     [TestCase(2300)]
     public void LeapYearCalculator_GivenAYearIsDivisibleByOneHundred_ReturnsFalse(int year)
     {
-        var result = SF_Module1.LeapYearCalculator(year);
+        var result = SF_Module_1.LeapYearCalculator(year);
 
         Assert.IsFalse(result);
     }
@@ -34,7 +34,7 @@ public class SF_Module1Tests
     [TestCase(1200)]
     public void LeapYearCalculator_GivenAYearIsDivisibleByFourHundred_ReturnsTrue(int year)
     {
-        var result = SF_Module1.LeapYearCalculator(year);
+        var result = SF_Module_1.LeapYearCalculator(year);
 
         Assert.IsTrue(result);
     }
@@ -45,7 +45,7 @@ public class SF_Module1Tests
     [TestCase(1900, false)]
     public void LeapYearCalculator_GivenATest_ReturnsCorrectValues(int year, bool isALeapYear)
     {
-        var result = SF_Module1.LeapYearCalculator(year);
+        var result = SF_Module_1.LeapYearCalculator(year);
 
         Assert.AreEqual(isALeapYear, result);
     }

@@ -19,7 +19,7 @@
 
 namespace SoftwareCrafters;
 
-public class SF_Module1
+public class SF_Module_1
 {
     public static bool LeapYearCalculator(int year)
         => year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
