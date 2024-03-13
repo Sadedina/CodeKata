@@ -49,6 +49,4 @@ public class SF_Module_1_Tests
 
         Assert.AreEqual(isALeapYear, result);
     }
-
-
 }
