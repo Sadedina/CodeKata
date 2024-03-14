@@ -16,11 +16,3 @@
     additional clues can be found here:
     https://learn.microsoft.com/en-us/office/troubleshoot/excel/determine-a-leap-year
 */
-
-namespace SoftwareCrafters;
-
-public class SF_Module_1
-{
-    public static bool LeapYearCalculator(int year)
-        => year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
-}
