@@ -6,7 +6,10 @@ public class RomanNumerals
 
     public static string ConvertIntoRomanNumerals(int arabicNumber)
     {
-        ToBaseFive(arabicNumber);
+        var numbersIntoList = IntoList(arabicNumber);
+        var reverseList = ReverseList(numbersIntoList);
+        var convertIntoBaseTens = ConvertToBaseTen(reverseList);
+        var reReveresedList = ReverseList(convertIntoBaseTens);
 
         if (arabicNumber == 1)
             return "I";
@@ -41,18 +44,25 @@ public class RomanNumerals
         return "";
     }
 
-    //private static int Converter(int arabicNumber, out string romanNumeral)
-    //{
-    //    if (arabicNumber < 4)
-    //    {
-    //        for (int i = 0; i < arabicNumber; i++)
-    //        {
-    //            romanNumber += ArabicToRomanDictionary[1];
-    //        }
+    private static List<double> ReverseList(List<double> numbers)
+    {
+        numbers.Reverse();
 
-    //        return romanNumber;
-    //    }
-    //}
+        return numbers;
+    }
+
+    private static List<double> IntoList(int num)
+    {
+        var numAsString = num.ToString();
+
+        return numAsString
+            .Select(letter => Convert.ToDouble(letter.ToString()))
+            .ToList();
+    }
+
+    private static List<double> ConvertToBaseTen(List<double> numbers)
+        => numbers.Select((number, position) => number * Math.Pow(10, position)).ToList();
+
 
     private static Dictionary<int, string> NumbersDictionary()
     {
@@ -66,21 +76,5 @@ public class RomanNumerals
             { 500, "D" },
             { 1000, "M" }
         };
-    }
-
-    private static string ToBaseFive(int num)
-    {
-        num = 15;
-        var remainder = num % 5;
-        if (num - remainder == 0)
-            return toChar(remainder).ToString();
-
-        return ToBaseFive((num - remainder) / 16) + toChar(remainder);
-    }
-
-    private static char toChar(int num)
-    {
-        var alpha = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-        return alpha[num];
     }
 }
