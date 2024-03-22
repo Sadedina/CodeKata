@@ -3,8 +3,7 @@
 public class RomanNumerals
 {
     #region Second Attempt
-    private static readonly Dictionary<int, string> Mapper =
-        new Dictionary<int, string>
+    private static readonly Dictionary<int, string> Mapper = new()
         {
             { 1000, "M" },
             { 900, "CM" },
