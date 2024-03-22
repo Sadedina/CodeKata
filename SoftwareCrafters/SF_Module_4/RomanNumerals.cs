@@ -2,79 +2,85 @@
 
 public class RomanNumerals
 {
-    private static readonly Dictionary<double, string> ArabicToRomanDictionary = NumbersDictionary();
+    #region Second Attempt
 
-    public static string ConvertIntoRomanNumerals(int arabicNumber)
-    {
-        var romanNumeral = "";
-        var intoBaseTenList = IntoBaseTenList(arabicNumber);
+    #endregion
 
-        foreach (var numbers in intoBaseTenList)
-        {
-            if (numbers == 0)
-                continue;
+    #region First attempt
+    //private static readonly Dictionary<double, string> Mapper = NumbersDictionary();
 
-            var num = numbers;
-            foreach (var dictionary in ArabicToRomanDictionary)
-            {
-                while (num >= dictionary.Key)
-                {
-                    romanNumeral += dictionary.Value;
-                    num -= dictionary.Key;
-                }
+    //public static string Convert(int number)
+    //{
+    //    var result = "";
+    //    var intoBaseTenList = IntoBaseTenList(number);
 
-                if (num == 0)
-                    break;
-            }
-        }
+    //    foreach (var numbers in intoBaseTenList)
+    //    {
+    //        if (numbers == 0)
+    //            continue;
 
-        return romanNumeral;
-    }
+    //        var num = numbers;
+    //        foreach (var item in Mapper)
+    //        {
+    //            while (num >= item.Key)
+    //            {
+    //                result += item.Value;
+    //                num -= item.Key;
+    //            }
 
-    private static List<double> IntoBaseTenList(int arabicNumber)
-    {
-        var numbersIntoList = IntoList(arabicNumber);
-        var reverseList = ReverseList(numbersIntoList);
-        var convertIntoBaseTens = ConvertToBaseTen(reverseList);
-        return ReverseList(convertIntoBaseTens);
-    }
+    //            if (num == 0)
+    //                break;
+    //        }
+    //    }
 
-    private static List<double> IntoList(int num)
-    {
-        var numAsString = num.ToString();
+    //    return result;
+    //}
 
-        return numAsString
-            .Select(letter => Convert.ToDouble(letter.ToString()))
-            .ToList();
-    }
+    //private static List<double> IntoBaseTenList(int arabicNumber)
+    //{
+    //    var numbersIntoList = IntoList(arabicNumber);
+    //    var reverseList = ReverseList(numbersIntoList);
+    //    var convertIntoBaseTens = ConvertToBaseTen(reverseList);
+    //    return ReverseList(convertIntoBaseTens);
+    //}
 
-    private static List<double> ReverseList(List<double> numbers)
-    {
-        numbers.Reverse();
+    //private static List<double> IntoList(int num)
+    //{
+    //    var numAsString = num.ToString();
 
-        return numbers;
-    }
+    //    return numAsString
+    //        .Select(letter => Convert.ToDouble(letter.ToString()))
+    //        .ToList();
+    //}
 
-    private static List<double> ConvertToBaseTen(List<double> numbers)
-        => numbers.Select((number, position) => number * Math.Pow(10, position)).ToList();
+    //private static List<double> ReverseList(List<double> numbers)
+    //{
+    //    numbers.Reverse();
 
-    private static Dictionary<double, string> NumbersDictionary()
-    {
-        return new()
-        {
-            { 1000, "M" },
-            { 900, "CM" },
-            { 500, "D" },
-            { 400, "CD" },
-            { 100, "C" },
-            { 90, "XC" },
-            { 50, "L" },
-            { 40, "XL" },
-            { 10, "X" },
-            { 9, "IX" },
-            { 5, "V" },
-            { 4, "IV" },
-            { 1, "I" }
-        };
-    }
+    //    return numbers;
+    //}
+
+    //private static List<double> ConvertToBaseTen(List<double> numbers)
+    //    => numbers.Select((number, position) => number * Math.Pow(10, position)).ToList();
+
+    //private static Dictionary<double, string> NumbersDictionary()
+    //{
+    //    return new()
+    //    {
+    //        { 1000, "M" },
+    //        { 900, "CM" },
+    //        { 500, "D" },
+    //        { 400, "CD" },
+    //        { 100, "C" },
+    //        { 90, "XC" },
+    //        { 50, "L" },
+    //        { 40, "XL" },
+    //        { 10, "X" },
+    //        { 9, "IX" },
+    //        { 5, "V" },
+    //        { 4, "IV" },
+    //        { 1, "I" }
+    //    };
+    //}
+    #endregion
 }
