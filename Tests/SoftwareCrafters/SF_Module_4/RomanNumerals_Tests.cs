@@ -94,6 +94,7 @@ public class RomanNumerals_Tests
     [TestCase(9, "IX")]
     [TestCase(29, "XXIX")]
     [TestCase(294, "CCXCIV")]
+    [TestCase(1900, "MCM")]
     [TestCase(2023, "MMXXIII")]
     public void Convert_GivenRandomNumbers_ReturnsCorrectRomanNumeral(int arabicNumber, string expectedNumber)
     {
