@@ -9,18 +9,18 @@ public class ArabicNumbers_Tests
     [TestCase("I", 1)]
     [TestCase("II", 2)]
     [TestCase("III", 3)]
-    public void ConvertIntoArabicNumbers_GivenNumbersUpToThree_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberUpToThree_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
 
     [TestCase("IV", 4)]
     [TestCase("V", 5)]
-    public void ConvertIntoArabicNumbers_GivenNumbersFourAndFive_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberFourAndFive_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -28,18 +28,18 @@ public class ArabicNumbers_Tests
     [TestCase("VI", 6)]
     [TestCase("VII", 7)]
     [TestCase("VIII", 8)]
-    public void ConvertIntoArabicNumbers_GivenNumbersSixToEightIncluded_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberSixToEightIncluded_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
 
     [TestCase("IX", 9)]
     [TestCase("X", 10)]
-    public void ConvertIntoArabicNumbers_GivenNumbersNineAndTen_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberNineAndTen_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -51,9 +51,9 @@ public class ArabicNumbers_Tests
     [TestCase("C", 100)]
     [TestCase("D", 500)]
     [TestCase("M", 1000)]
-    public void ConvertIntoArabicNumbers_GivenNumbersWithPossibleLetters_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberWithPossibleLetters_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -67,9 +67,9 @@ public class ArabicNumbers_Tests
     [TestCase("LXX", 70)]
     [TestCase("LXXX", 80)]
     [TestCase("XC", 90)]
-    public void ConvertIntoArabicNumbers_GivenNumbersMultipleOfTensToNinety_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberMultipleOfTensToNinety_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -83,9 +83,9 @@ public class ArabicNumbers_Tests
     [TestCase("DCC", 700)]
     [TestCase("DCCC", 800)]
     [TestCase("CM", 900)]
-    public void ConvertIntoArabicNumbers_GivenNumbersMultipleOfHundredsToNineHundred_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenNumberMultipleOfHundredsToNineHundred_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -95,9 +95,9 @@ public class ArabicNumbers_Tests
     [TestCase("XXIX", 29)]
     [TestCase("CCXCIV", 294)]
     [TestCase("MMXXIII", 2023)]
-    public void ConvertIntoArabicNumbers_GivenRandomNumbers_ReturnsCorrectArabicNumber(string romanNumeral, int expectedNumber)
+    public void Convert_GivenRandomNumbers_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.ConvertIntoArabicNumbers(romanNumeral);
+        var result = ArabicNumbers.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }

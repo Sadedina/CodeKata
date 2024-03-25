@@ -2,27 +2,62 @@
 
 public class ArabicNumbers
 {
-    private static readonly Dictionary<string, int> RomanToArabicDictionary = NumbersDictionary();
+    #region Second Attempt
+    //private static readonly Dictionary<string, int> Mappers =
+    //    new Dictionary<string, int>
+    //    {
+    //        { "M", 1000 },
+    //        { "CM", 900 },
+    //        { "D", 500 },
+    //        { "CD", 400 },
+    //        { "C", 100 },
+    //        { "XC", 90 },
+    //        { "L", 50 },
+    //        { "XL", 40 },
+    //        { "X", 10 },
+    //        { "IX", 9 },
+    //        { "V", 5 },
+    //        { "IV", 4 },
+    //        { "I", 1 }
+    //    };
 
+    //public static int Convert(string numeral)
+    //{
+    //    if (Mappers.ContainsKey(numeral))
+    //        return Mappers[numeral];
 
-    public static int ConvertIntoArabicNumbers(string romanNumeral)
+    //    foreach (var item in Mappers.Where(item => numeral.StartsWith(item.Key)))
+    //    {
+    //        return item.Value + Convert(numeral.Remove(0, item.Key.Length));
+    //    }
+
+    //    return 0;
+    //}
+    #endregion
+
+    #region First Attempt
+    private static readonly Dictionary<string, int> Mappers = NumbersDictionary();
+
+    public static int Convert(string numeral)
     {
-        var arabicNumber = 0;
+        var result = 0;
 
         do
         {
-            foreach (var item in RomanToArabicDictionary.Where(item => romanNumeral.StartsWith(item.Key)))
+            foreach (var item in NumeralStartsWith(numeral))
             {
-                arabicNumber += item.Value;
-                romanNumeral = romanNumeral.Remove(0, item.Key.Length);
+                result += item.Value;
+                numeral = numeral.Remove(0, item.Key.Length);
                 break;
             }
 
-        } while (romanNumeral.Length != 0);
+        } while (numeral.Length != 0);
 
-
-        return arabicNumber;
+        return result;
     }
+
+    private static IEnumerable<KeyValuePair<string, int>> NumeralStartsWith(string numeral)
+        => Mappers.Where(item => numeral.StartsWith(item.Key));
 
     private static Dictionary<string, int> NumbersDictionary()
     {
@@ -43,4 +78,5 @@ public class ArabicNumbers
             { "I" , 1 }
         };
     }
+    #endregion
 }
