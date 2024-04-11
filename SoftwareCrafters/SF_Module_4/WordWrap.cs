@@ -1,6 +1,6 @@
 ﻿namespace SoftwareCrafters.SF_Module_4;
 
-public class WordWrap
+public static class WordWrap
 {
     public static string Wrap(string sentence, int columnNumber)
     {

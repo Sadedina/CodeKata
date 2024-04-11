@@ -1,6 +1,6 @@
 ﻿namespace SoftwareCrafters.SF_Module_4;
 
-public class RomanNumerals
+public static class RomanNumerals
 {
     #region Second Attempt
     private static readonly Dictionary<int, string> Mapper = new()

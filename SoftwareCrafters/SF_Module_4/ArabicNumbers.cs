@@ -1,6 +1,6 @@
 ﻿namespace SoftwareCrafters.SF_Module_4;
 
-public class ArabicNumbers
+public static class RockPaperScissors
 {
     #region Second Attempt
     //private static readonly Dictionary<string, int> Mappers =

@@ -4,14 +4,14 @@ using SoftwareCrafters.SF_Module_4;
 namespace Tests.SoftwareCrafters.SF_Module_4;
 
 [TestFixture]
-public class ArabicNumbers_Tests
+public class RockPaperScissors_Tests
 {
     [TestCase("I", 1)]
     [TestCase("II", 2)]
     [TestCase("III", 3)]
     public void Convert_GivenNumberUpToThree_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -20,7 +20,7 @@ public class ArabicNumbers_Tests
     [TestCase("V", 5)]
     public void Convert_GivenNumberFourAndFive_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -30,7 +30,7 @@ public class ArabicNumbers_Tests
     [TestCase("VIII", 8)]
     public void Convert_GivenNumberSixToEightIncluded_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -39,7 +39,7 @@ public class ArabicNumbers_Tests
     [TestCase("X", 10)]
     public void Convert_GivenNumberNineAndTen_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -53,7 +53,7 @@ public class ArabicNumbers_Tests
     [TestCase("M", 1000)]
     public void Convert_GivenNumberWithPossibleLetters_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -69,7 +69,7 @@ public class ArabicNumbers_Tests
     [TestCase("XC", 90)]
     public void Convert_GivenNumberMultipleOfTensToNinety_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -85,7 +85,7 @@ public class ArabicNumbers_Tests
     [TestCase("CM", 900)]
     public void Convert_GivenNumberMultipleOfHundredsToNineHundred_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
@@ -97,7 +97,7 @@ public class ArabicNumbers_Tests
     [TestCase("MMXXIII", 2023)]
     public void Convert_GivenRandomNumbers_ReturnsCorrectNumeral(string romanNumeral, int expectedNumber)
     {
-        var result = ArabicNumbers.Convert(romanNumeral);
+        var result = RockPaperScissors.Convert(romanNumeral);
 
         Assert.AreEqual(expectedNumber, result);
     }
