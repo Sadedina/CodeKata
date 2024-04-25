@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SoftwareCrafters.SF_Module_5;
-using SoftwareCrafters.SF_Module_5.Models;
+using SoftwareCrafters.SF_Module_5.Models_RockPaperScissors;
 
 namespace Tests.SoftwareCrafters.SF_Module_5;
 

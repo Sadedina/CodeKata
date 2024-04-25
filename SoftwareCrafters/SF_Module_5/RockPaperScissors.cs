@@ -1,4 +1,4 @@
-﻿using SoftwareCrafters.SF_Module_5.Models;
+﻿using SoftwareCrafters.SF_Module_5.Models_RockPaperScissors;
 
 namespace SoftwareCrafters.SF_Module_5;
 
