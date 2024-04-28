@@ -1,6 +1,6 @@
 ﻿namespace SoftwareCrafters.SF_Module_6.Tennis;
 
-class TennisGame1 : ITennisGame
+public class TennisGame1 : ITennisGame
 {
     private int m_score1 = 0;
     private int m_score2 = 0;
