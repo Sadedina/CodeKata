@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using SoftwareCrafters.Module_6.Tennis;
+﻿using SoftwareCrafters.Module_6.Tennis;
 
 namespace Tests.SoftwareCrafters.Tests.Module_6.Tennis;
 
@@ -60,7 +58,7 @@ public class Tennis_Tests
     [Test]
     public void CheckTennisGame2()
     {
-        var game = new TennisGame2("player1", "player2");
+        var game = new TennisGame2();
         CheckAllScores(game);
     }
 
@@ -99,7 +97,7 @@ public class ExampleGameTennisTest
     [Test]
     public void CheckGame2()
     {
-        var game = new TennisGame2("player1", "player2");
+        var game = new TennisGame2();
         RealisticTennisGame(game);
     }
 
