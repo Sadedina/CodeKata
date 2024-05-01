@@ -23,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CodeKata\SpartaGlobal.csproj" />
+	  <ProjectReference Include="..\SpartaGlobal\SpartaGlobal.csproj" />
 	</ItemGroup>
 
 </Project>
