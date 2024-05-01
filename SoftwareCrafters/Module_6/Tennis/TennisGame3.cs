@@ -2,41 +2,53 @@
 
 public class TennisGame3 : ITennisGame
 {
-    private int p2;
-    private int p1;
-    private string p1N;
-    private string p2N;
+    private readonly string playerOne;
+    private readonly string playerTwo;
+    private int playerTwoScore;
+    private int playerOneScore;
 
-    public TennisGame3(string player1Name, string player2Name)
-    {
-        this.p1N = player1Name;
-        this.p2N = player2Name;
-    }
-
-    public string GetScore()
-    {
-        string s;
-        if ((p1 < 4 && p2 < 4) && (p1 + p2 < 6))
-        {
-            string[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-            s = p[p1];
-            return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
-        }
-        else
-        {
-            if (p1 == p2)
-                return "Deuce";
-            s = p1 > p2 ? p1N : p2N;
-            return ((p1 - p2) * (p1 - p2) == 1) ? "Advantage " + s : "Win for " + s;
-        }
-    }
+    public TennisGame3(string playerOne, string playerTwo)
+        => (this.playerOne, this.playerTwo) = (playerOne, playerTwo);
 
     public void WonPoint(string playerName)
     {
         if (playerName == "player1")
-            this.p1 += 1;
-        else
-            this.p2 += 1;
+            playerOneScore += 1;
+
+        if (playerName == "player2")
+            playerTwoScore += 1;
     }
 
+    public string GetScore()
+    {
+        if (playerOneScore < 4 && playerTwoScore < 4 && playerOneScore + playerTwoScore < 6)
+            return EvaluateScore();
+
+        if (playerOneScore == playerTwoScore)
+            return "Deuce";
+
+        return EvaluateWinningPlayer();
+    }
+
+    private string EvaluateScore()
+    {
+        var points = new[] { "Love", "Fifteen", "Thirty", "Forty" };
+
+        var score = points[playerOneScore];
+
+        return playerOneScore == playerTwoScore
+            ? score + "-All"
+            : score + "-" + points[playerTwoScore];
+    }
+
+    private string EvaluateWinningPlayer()
+    {
+        var winningPlayer = playerOneScore > playerTwoScore
+            ? playerOne
+            : playerTwo;
+
+        return ((playerOneScore - playerTwoScore) * (playerOneScore - playerTwoScore) == 1)
+            ? "Advantage " + winningPlayer
+            : "Win for " + winningPlayer;
+    }
 }
