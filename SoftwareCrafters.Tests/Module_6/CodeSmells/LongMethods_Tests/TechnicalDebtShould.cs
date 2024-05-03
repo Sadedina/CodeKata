@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using SoftwareCrafters.Module_6.CodeSmells.LongMethods;
+﻿using SoftwareCrafters.Module_6.CodeSmells.LongMethods;
 
 namespace Tests.SoftwareCrafters.Tests.Module_6.CodeSmells.LongMethods_Tests;
 
