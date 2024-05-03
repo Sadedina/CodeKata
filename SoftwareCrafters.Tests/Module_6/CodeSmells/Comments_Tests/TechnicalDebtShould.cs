@@ -8,7 +8,7 @@ public class TechnicalDebtShould
     private TechnicalDebt technicalDebt;
 
     [SetUp]
-    public void BeforeEach() => technicalDebt = new TechnicalDebt();
+    public void BeforeEach() => technicalDebt = new();
 
     [Test]
     public void FixingIssueIssueDeductsEffortFromTotal()
