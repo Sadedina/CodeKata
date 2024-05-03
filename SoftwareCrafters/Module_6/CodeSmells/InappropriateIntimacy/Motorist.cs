@@ -4,34 +4,18 @@ public class Motorist
 {
     public License license;
 
-    public Motorist(License license, string surname, string firstName, string title)
+    public Motorist(License license) => this.license = license;
+
+    public RiskFactor RiskFactor => CalculateRisckFactor();
+
+    private RiskFactor CalculateRisckFactor()
     {
-        license.Motorist = this;
-        this.license = license;
-        this.Surname = surname;
-        this.FirstName = firstName;
-        this.Title = title;
-    }
+        if (license.Points > 3)
+            return RiskFactor.HIGH_RISK;
 
-    public string Surname { get; private set; }
+        if (license.Points > 0)
+            return RiskFactor.MODERATE_RISK;
 
-    public string FirstName { get; private set; }
-
-    public string Title { get; private set; }
-
-    public RiskFactor RiskFactor
-    {
-        get
-        {
-            if (license.Points > 3)
-            {
-                return RiskFactor.HIGH_RISK;
-            }
-            if (license.Points > 0)
-            {
-                return RiskFactor.MODERATE_RISK;
-            }
-            return RiskFactor.LOW_RISK;
-        }
+        return RiskFactor.LOW_RISK;
     }
 }

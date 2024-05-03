@@ -37,7 +37,9 @@
 
 public class Motorist
 {
-    public Motorist(int pointsOnLicense) => PointsOnLicense = pointsOnLicense;
+    private readonly int pointsOnLicense;
 
-    public int PointsOnLicense { get; private set; }
+    public Motorist(int pointsOnLicense) => this.pointsOnLicense = pointsOnLicense;
+
+    public int PointsOnLicense => pointsOnLicense;
 }
