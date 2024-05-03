@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using SoftwareCrafters.Module_6.CodeSmells.DuplicateCode;
+﻿using SoftwareCrafters.Module_6.CodeSmells.DuplicateCode;
 
 namespace Tests.SoftwareCrafters.Tests.Module_6.CodeSmells.DuplicateCode_Tests;
 
@@ -13,11 +11,11 @@ public class TechnicalDebtShould
         var account = new TechnicalDebt();
         account.Register(50, "Some technical debt");
         Assert.That(50, Is.EqualTo(account.Balance));
+
         var lastTransaction = account.LastTransaction;
         Assert.That(50, Is.EqualTo(lastTransaction.EffortManHours));
 
         var now = DateTime.Now;
-
         Assert.That(now.Date + "/" + now.Month + "/" + now.Year, Is.EqualTo(account.LastTransactionDate));
     }
 
@@ -27,12 +25,13 @@ public class TechnicalDebtShould
         var account = new TechnicalDebt();
         account.Register(100, "Some technical debt");
         account.Fix(50, "Fix technical debt");
+
         Assert.That(50, Is.EqualTo(account.Balance));
         var lastTransaction = account.LastTransaction;
+
         Assert.That(-50, Is.EqualTo(lastTransaction.EffortManHours));
 
         var now = DateTime.Now;
-
         Assert.That(now.Date + "/" + now.Month + "/" + now.Year, Is.EqualTo(account.LastTransactionDate));
     }
 }

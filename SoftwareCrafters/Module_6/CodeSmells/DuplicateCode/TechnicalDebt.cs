@@ -47,15 +47,18 @@ public class TechnicalDebt
     public void Register(float effortManHours, string description)
     {
         Balance += effortManHours;
-        transactions.Add(new Issue(effortManHours, description));
-        var now = DateTime.Now;
-        LastTransactionDate = now.Date + "/" + now.Month + "/" + now.Year;
+        PerformTransactions(effortManHours, description);
     }
 
     public void Fix(float effortManHours, string description)
     {
         Balance -= effortManHours;
-        transactions.Add(new Issue(-effortManHours, description));
+        PerformTransactions(-effortManHours, description);
+    }
+
+    private void PerformTransactions(float effortManHours, string description)
+    {
+        transactions.Add(new Issue(effortManHours, description));
         var now = DateTime.Now;
         LastTransactionDate = now.Date + "/" + now.Month + "/" + now.Year;
     }
