@@ -98,12 +98,10 @@ public class InsuranceQuotationTests
 
     private InsuranceQuote BuildInsuranceQuoteForMotorist(string dateOfBirth, int pointsOnLicense)
     {
-        var birthDate = ParseDate(dateOfBirth);
+        var birthDate = DateTime.Parse(dateOfBirth);
         var age = new MotoristAge(birthDate);
         var motorist = new Motorist(pointsOnLicense);
 
         return new(motorist, age);
     }
-
-    private static DateTime ParseDate(string dateOfBirth) => DateTime.Parse(dateOfBirth);
 }
