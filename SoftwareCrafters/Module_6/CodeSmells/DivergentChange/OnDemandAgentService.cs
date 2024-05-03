@@ -77,9 +77,7 @@ public class OnDemandAgentService : OnDemandLog
 {
     private readonly OnDemandCustomer customer;
 
-    public OnDemandAgentService(OnDemandCustomer customer)
-    {
-    }
+    public OnDemandAgentService(OnDemandCustomer customer) => this.customer = customer;
 
     public OnDemandAgent StartNewOnDemandMachine()
     {
