@@ -1,11 +1,22 @@
 ﻿namespace SoftwareCrafters.Module_6.CodeSmells.MessageChains;
 
+#region
+//public class Address
+//{
+//    public Address(Country country)
+//    {
+//        this.Country = country;
+//    }
+
+//    public Country Country { get; private set; }
+//}
+#endregion
+
 public class Address
 {
-    public Address(Country country)
-    {
-        this.Country = country;
-    }
+    private readonly Country country;
 
-    public Country Country { get; private set; }
+    public Address(Country country) => this.country = country;
+
+    public Country Country => country;
 }
