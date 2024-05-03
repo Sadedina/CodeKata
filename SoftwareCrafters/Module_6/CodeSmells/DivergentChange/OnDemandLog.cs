@@ -2,28 +2,11 @@
 
 public class OnDemandLog
 {
-    private readonly string username;
-
-    public OnDemandLog(OnDemandCustomer customer) => username = customer.Username;
-
     public List<string> Log { get; set; } = new();
 
-    public void LogInfo(bool startNewAgent = false)
-    {
-        var info = "Starting on-demand agent startup logic";
+    public void LogInfo(string info) => Log.Add(string.Concat("INFO: ", info));
 
-        if (startNewAgent)
-            info = string.Format("User {0} will attempt to start a new on-demand agent.", username);
-
-        Log.Add(string.Concat("INFO: ", info));
-    }
-
-    public void LogWarning()
-    {
-        var warning = string.Format("User {0} attempted to start a new on-demand agent.", username);
-
-        Log.Add(string.Concat("WARNING: ", warning));
-    }
+    public void LogWarning(string warning) => Log.Add(string.Concat("WARNING: ", warning));
 
     public void LogError()
     {

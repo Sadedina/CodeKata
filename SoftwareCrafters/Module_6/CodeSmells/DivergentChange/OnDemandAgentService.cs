@@ -77,25 +77,27 @@ public class OnDemandAgentService : OnDemandLog
 {
     private readonly OnDemandCustomer customer;
 
-    public OnDemandAgentService(OnDemandCustomer customer) : base(customer)
+    public OnDemandAgentService(OnDemandCustomer customer)
     {
     }
 
     public OnDemandAgent StartNewOnDemandMachine()
     {
-        LogInfo();
+        LogInfo("Starting on-demand agent startup logic");
 
         try
         {
             if (customer.IsAuthorized)
             {
-                LogInfo(startNewAgent: true);
+                var info = string.Format("User {0} will attempt to start a new on-demand agent.", customer.Username);
+                LogInfo(info);
                 var agent = StartNewAmazonServer();
                 SendEmailToAdmin(agent.Ip);
                 return agent;
             }
 
-            LogWarning();
+            var warning = string.Format("User {0} attempted to start a new on-demand agent.", customer.Username);
+            LogWarning(warning);
             throw new UnauthorizedAccessException("Unauthorized access to StartNewOnDemandMachine method.");
         }
         catch (Exception)
