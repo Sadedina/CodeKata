@@ -10,13 +10,13 @@ public class Fixture
 
     internal void AClientOpensANewAccount()
     {
-        var client = new Client("Dr", "Jack", "Smith");
+        var client = new Client("Dr.", "Jack", "Smith");
         Account = new Account(client);
     }
 
     internal void AClientHasAnExistingAccountWithABalance(decimal expectedBalance)
     {
-        var client = new Client("Dr", "Jack", "Smith");
+        var client = new Client("Dr.", "Jack", "Smith");
         Account = new Account(client);
         Account.Deposit(expectedBalance);
     }

@@ -13,9 +13,9 @@ public class Client
         string lastName,
         int? age = null)
     {
-        this.title = title.ToUpper();
-        this.firstName = firstName.ToUpper();
-        this.lastName = lastName.ToUpper();
+        this.title = title;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
     }
 

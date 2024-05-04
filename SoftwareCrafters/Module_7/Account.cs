@@ -7,6 +7,9 @@ public interface IAccount
     public decimal GetBalance();
     public void Deposit(decimal amount);
     public void Withdrawal(decimal amount);
+    public void TransferDeposit(decimal amount);
+    public void AddExternalLog(string message);
+    public string GetExternalLog();
 }
 
 public class Account : IAccount
@@ -14,6 +17,7 @@ public class Account : IAccount
     private readonly Client client;
     private decimal balance;
     private List<string> log = new();
+    private string externalLog;
 
     public Account(Client client) => this.client = client;
 
@@ -47,16 +51,20 @@ public class Account : IAccount
         balance -= amount;
     }
 
-    //public string UniqueIdentifier => CreateUniqueClientNumber();
+    public void TransferDeposit(decimal amount)
+    {
+        var hasExceededAccountLimit = balance + amount > 3000000000;
 
-    //private string CreateUniqueClientNumber()
-    //{
-    //    var identifier = client.Title.First() +
-    //        client.FirstName.First() +
-    //        client.LastName.First() +
-    //        client.Age.GetValueOrDefault() +
-    //        Guid.NewGuid().ToString();
+        if (hasExceededAccountLimit)
+        {
+            externalLog = $"Warning: You can not make the transfer of £ {amount}, as {client.Title} {client.LastName} will exceed the maximum account balance on the account!";
+            return;
+        }
 
-    //    return identifier.Substring(0, 10);
-    //}
+        balance += amount;
+    }
+
+    public string GetExternalLog() => externalLog;
+
+    public void AddExternalLog(string message) => log.Add(message);
 }
