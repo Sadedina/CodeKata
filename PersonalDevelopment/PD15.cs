@@ -2,6 +2,13 @@
 
 public class PD15
 {
+    public static string CretaeMethodName(string sentence)
+    {
+        var words = sentence.Split("\r\n").ToList();
+
+        return CretaeMethodName(words);
+    }
+
     public static string CretaeMethodName(List<string> method)
     {
         var methodName = "";
@@ -21,7 +28,7 @@ public class PD15
     {
         var finalSentence = "";
 
-        var words = sentence.Split(' ');
+        var words = sentence.Replace(",", "").Split(' ');
 
         foreach (var word in words)
         {

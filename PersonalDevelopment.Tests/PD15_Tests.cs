@@ -5,19 +5,7 @@ public class PD15_Tests
     [Test]
     public void CretaeMethodName_GivenInput_ReturnsOutput()
     {
-        var sample = new List<string>
-        {
-            "GIVENNNNNNNNNNNNNNNNNNNNN",
-            "WHENNNNNNNNNNNNNNNNNNNNN",
-            "THENNNNNNNNNNNNNNNNNNNNN"
-        };
-
-        var givenWhenThen = new List<string>
-        {
-            "GIVEN a client opens a new account",
-            "WHEN the client views their balance",
-            "THEN the client should have an account balance of 0"
-        };
+        var givenWhenThen = "GIVEN a client opens a new account\r\nWHEN the client makes a withdrawal of 1001\r\nTHEN the withdrawal should be rejected\r\nAND the client should be told they can not exceed overdraft of 1000";
 
         var methodName = PD15.CretaeMethodName(givenWhenThen);
 
