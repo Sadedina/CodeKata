@@ -28,4 +28,10 @@
 	  <ProjectReference Include="..\SoftwareCrafters\SoftwareCrafters.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Module_8\ThirtyDays.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
