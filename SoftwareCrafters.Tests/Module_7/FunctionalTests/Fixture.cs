@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using SoftwareCrafters.Module_7;
+﻿using SoftwareCrafters.Module_7;
 using SoftwareCrafters.Module_7.Models;
 
 namespace SoftwareCrafters.Tests.Module_7.FunctionalTests;

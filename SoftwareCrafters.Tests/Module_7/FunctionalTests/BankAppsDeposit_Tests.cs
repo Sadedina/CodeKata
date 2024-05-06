@@ -61,5 +61,5 @@ public class BankAppsDeposit_Tests : Fixture
         .BDDfy();
     }
 
-    private void ClientMakesADeposit(decimal amount) => bankApps.DepositIntoAccount(amount);
+    private void ClientMakesADeposit(decimal amount) => bankApps.DepositIntoAccount(amount, DateTime.Now);
 }

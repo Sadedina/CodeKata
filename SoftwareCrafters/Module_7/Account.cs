@@ -5,6 +5,10 @@ namespace SoftwareCrafters.Module_7;
 public interface IAccount
 {
     public decimal GetBalance();
+    public List<string[]> GetStatement();
+    public List<string> GetLog();
+    public void AddStatement(Statement statement);
+    public void AddLog(string message);
     public void Deposit(decimal amount);
     public void Withdrawal(decimal amount);
 }
@@ -16,6 +20,14 @@ public class Account : IAccount
     public Account(AccountDetails details) => this.details = details;
 
     public decimal GetBalance() => details.Balance;
+
+    public List<string[]> GetStatement() => details.Statements;
+
+    public List<string> GetLog() => details.Logs;
+
+    public void AddStatement(Statement statement) => details.AddStatement(statement);
+
+    public void AddLog(string message) => details.AddLog(message);
 
     public void Deposit(decimal amount) => details.Balance += amount;
 

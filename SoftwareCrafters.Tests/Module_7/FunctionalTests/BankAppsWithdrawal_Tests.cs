@@ -32,5 +32,5 @@ public class BankAppsWithdrawal_Tests : Fixture
         .BDDfy();
     }
 
-    private void ClientMakesAWithdrawal(decimal amount) => bankApps.WithdrawalFromAccount(amount);
+    private void ClientMakesAWithdrawal(decimal amount) => bankApps.WithdrawalFromAccount(amount, DateTime.Now);
 }

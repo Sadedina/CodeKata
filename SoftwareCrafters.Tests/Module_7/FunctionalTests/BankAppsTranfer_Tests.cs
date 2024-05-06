@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using SoftwareCrafters.Module_7.Models;
+﻿using SoftwareCrafters.Module_7.Models;
 
 namespace SoftwareCrafters.Tests.Module_7.FunctionalTests;
 
@@ -91,7 +90,7 @@ public class BankAppsTranfer_Tests : Fixture
     }
 
     private void ClientBRecievesATransferFromClientA(AccountDetails details, decimal amount)
-        => bankApps.TransferIntoAccount(details, amount);
+        => bankApps.TransferIntoAccount(details, amount, DateTime.Now);
 
     private static void ClientShouldHaveAnAccountBalance(AccountDetails details, decimal amount)
         => details.Balance.Should().Be(amount);
