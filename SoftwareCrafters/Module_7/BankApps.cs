@@ -10,12 +10,7 @@ public class BankApps
 
     public decimal GetBalanceFromAccount() => account.GetBalance();
 
-    public List<string[]> GetStatement()
-    {
-        var statement = account.GetStatement();
-        statement.Reverse();
-        return statement;
-    }
+    public List<string[]> GetStatement() => account.GetStatement();
 
     public List<string> GetLogs() => account.GetLog();
 

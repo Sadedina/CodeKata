@@ -21,7 +21,12 @@ public class Account : IAccount
 
     public decimal GetBalance() => details.Balance;
 
-    public List<string[]> GetStatement() => details.Statements;
+    public List<string[]> GetStatement()
+    {
+        var statement = details.Statements;
+        statement.Reverse();
+        return statement;
+    }
 
     public List<string> GetLog() => details.Logs;
 
