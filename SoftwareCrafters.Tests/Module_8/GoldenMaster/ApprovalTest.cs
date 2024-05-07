@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using SoftwareCrafters.Module_8;
 
 namespace SoftwareCrafters.Tests.Module_8.GoldenMaster;
 
@@ -47,7 +46,7 @@ public class ApprovalTest
         Console.SetOut(new StringWriter(fakeoutput));
         Console.SetIn(new StringReader("\n"));
 
-        Program.Main(new string[] { });
+        Program.Print();
         var output = fakeoutput.ToString();
 
         var outputLines = output.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);

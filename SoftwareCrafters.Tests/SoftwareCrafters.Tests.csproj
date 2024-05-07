@@ -29,6 +29,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Module_8\GoldenMaster\Original_ThirtyDays.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Module_8\GoldenMaster\ThirtyDays.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
