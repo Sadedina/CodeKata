@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using SoftwareCrafters.Module_8;
 
+namespace SoftwareCrafters.Tests.Module_8.GoldenMaster;
+
 #region Original
 //namespace SoftwareCrafters.Tests.Module_8
 //{
@@ -31,17 +33,13 @@ using SoftwareCrafters.Module_8;
 //    }
 //}
 #endregion
-
-namespace SoftwareCrafters.Tests.Module_8;
-
-[TestFixture]
 public class ApprovalTest
 {
     [Test]
     public void ThirtyDays()
     {
         var directory = Environment.CurrentDirectory.Split("bin").First();
-        var filePath = Path.Combine(directory, "Module_8", "ThirtyDays.txt");
+        var filePath = Path.Combine(directory, "Module_8\\GoldenMaster", "ThirtyDays.txt");
 
         var referenceLines = File.ReadAllLines(filePath);
 
