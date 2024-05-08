@@ -113,7 +113,24 @@ public class Program
     {
         Console.WriteLine("OMGHAI!");
 
-        var items = new List<IProduct>()
+        var items = CreateProductList();
+        var app = new Shop(items);
+
+        for (var i = 0; i < 31; i++)
+        {
+            Console.WriteLine("-------- day " + i + " --------");
+            Console.WriteLine("name, sellIn, quality");
+
+            items.ForEach(item => Console.WriteLine(item));
+
+            Console.WriteLine("");
+            app.UpdateQuality();
+        }
+    }
+
+    private static List<IProduct> CreateProductList()
+    {
+        return new()
         {
             new Product {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
             new AgedBrie {SellIn = 2, Quality = 0},
@@ -126,19 +143,5 @@ public class Program
             new Conjured {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6},
             new Conjured {Name = "Conjured Mana Cake", SellIn = 7, Quality = 21}
         };
-
-        var app = new Shop(items);
-
-        for (var i = 0; i < 31; i++)
-        {
-            Console.WriteLine("-------- day " + i + " --------");
-            Console.WriteLine("name, sellIn, quality");
-            for (var j = 0; j < items.Count; j++)
-            {
-                Console.WriteLine(items[j]);
-            }
-            Console.WriteLine("");
-            app.UpdateQuality();
-        }
     }
 }
