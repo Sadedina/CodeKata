@@ -2,18 +2,18 @@
 
 public class PD15
 {
-    public static string CretaeMethodName(string sentence)
+    public static string CreateMethodName(string sentence)
     {
         var words = sentence.Split("\r\n").ToList();
 
-        return CretaeMethodName(words);
+        return CreateMethodName(words);
     }
 
-    public static string CretaeMethodName(List<string> method)
+    public static string CreateMethodName(List<string> method)
     {
         var methodName = "";
 
-        for (int i = 0; i < method.Count; i++)
+        for (var i = 0; i < method.Count; i++)
         {
             methodName += SanitiseSentence(method[i]);
 
@@ -26,23 +26,16 @@ public class PD15
 
     private static string SanitiseSentence(string sentence)
     {
-        var finalSentence = "";
-
         var words = sentence.Replace(",", "").Split(' ');
 
-        foreach (var word in words)
-        {
-            finalSentence += SanitiseWord(word);
-        }
-
-        return finalSentence;
+        return words.Aggregate("", (current, word) => current + SanitiseWord(word));
     }
 
     private static string SanitiseWord(string word)
     {
         var finalWord = "";
 
-        for (int i = 0; i < word.Length; i++)
+        for (var i = 0; i < word.Length; i++)
         {
             var wordChar = word[i].ToString().ToLower();
 
@@ -54,5 +47,4 @@ public class PD15
 
         return finalWord;
     }
-
 }

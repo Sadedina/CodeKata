@@ -7,7 +7,7 @@ public class PD15_Tests
     {
         var givenWhenThen = "GIVEN a client opens a new account\r\nWHEN the client makes a withdrawal of 1001\r\nTHEN the withdrawal should be rejected\r\nAND the client should be told they can not exceed overdraft of 1000";
 
-        var methodName = PD15.CretaeMethodName(givenWhenThen);
+        var methodName = PD15.CreateMethodName(givenWhenThen);
 
         Assert.AreNotEqual("", methodName);
     }
@@ -17,7 +17,7 @@ public class PD15_Tests
         List<string> givenWhenThen,
         string expectedMethodName)
     {
-        var methodName = PD15.CretaeMethodName(givenWhenThen);
+        var methodName = PD15.CreateMethodName(givenWhenThen);
 
         Assert.AreEqual(expectedMethodName, methodName);
     }
